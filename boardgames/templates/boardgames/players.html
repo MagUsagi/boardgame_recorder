@@ -1,0 +1,15 @@
+
+{% extends "./base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+{% for player in players %}
+    <h5>{{ player.name }}</h5>
+{% endfor %}
+
+
+{% endblock %}

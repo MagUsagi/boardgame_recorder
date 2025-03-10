@@ -1,0 +1,211 @@
+
+{% extends "./base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="border-bottom mb-4 text-center">{{ game.title }}</h1>
+    <p class="text-center">{{ game.description }}</p>
+
+    <!-- game detail session -->  
+    <div class="card p-4">
+        <div class="row g-4 row-cols-1 row-cols-sm-2">
+        
+            <!-- image area -->
+            <div class="col">
+                <div class="row">
+                    <div class="col col-12">
+                        {% if game.image %}  
+                            <img class="img-fluid shadow" src="{{ game.image.url }}" alt="{{ game.title }}">
+                        {% else %}
+                            <div class="d-flex justify-content-center align-items-center bg-light shadow" style="height: 300px; width: 100%;">
+                                <span>No image Available</span>
+                            </div>
+                        {% endif %}
+                    </div> 
+                </div>    
+            </div>
+
+            <!-- game infomation area -->
+            <div class="col d-flex flex-column justify-content-between">
+                <ul class="list-unstyled mb-4">
+                    <li><strong>Players:</strong> {{ game.min_players }} - {{ game.max_players }} people</li>
+                    <li><strong>Game Time:</strong> {{ game.min_duration }} - {{ game.max_duration }} min</li>
+                    <li>
+                        <strong>Categories:</strong>
+                        {% for category in game.category.all %}
+                            <span class="badge rounded-pill bg-secondary">
+                                {{ category.name }}
+                            </span>
+                        {% empty %}
+                            <span class="text-muted">No categories</span>
+                        {% endfor %}
+                    </li>
+                    {% if game.expansions.all %}
+                        <li><strong>Expansions:</strong></li>
+                        <ul>
+                            {% for expansion in game.expansions.all %}
+                                <li>{{ expansion.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </ul>
+
+                <div class="mt-auto d-flex justify-content-center gap-2">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGameModal">Edit</button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGameModal">Delete Game</button>
+                </div>        
+            </div>
+
+        </div>
+    </div>
+
+    <br><br>
+    
+    <!-- game records session -->
+    <h2 class="border-bottom mt-5 text-center">Game Records</h2> 
+
+    {% if histories %}
+        <div class="accordion" id="gameHistoryAccordion">
+            {% for history in histories %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ history.id }}" aria-expanded="false">
+                            Played on {{ history.play_date }} 
+                            {% if history.duration %}
+                                ({{ history.duration }} Min)
+                            {% endif %}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ history.id }}" class="accordion-collapse collapse" data-bs-parent="#gameHistoryAccordion">
+                        <div class="accordion-body">
+                            <!-- Expansion -->
+                            {% if history.expansions_used.all %}
+                                <p><strong>Expansions Used:</strong></p>
+                                <ul>
+                                    {% for expansion in history.expansions_used.all %}
+                                        <li>{{ expansion.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p><em>No Expansions Used</em></p>
+                            {% endif %}
+
+                            <!-- Results Table -->
+                            <table class="table table-striped table-hover mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Score</th>
+                                        <th>Winner</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for result in history.results.all %}
+                                        {% if result.history_id == history.id %}
+                                            <tr>
+                                                <td>{{ result.player.name }}</td>
+                                                <td>{{ result.score }}</td>
+                                                <td>
+                                                    {% if result.is_winner == True %}
+                                                        {% if result.player.name == "Mag" %}
+                                                            <i class="fas fa-trophy text-secondary"></i>
+                                                        {% elif result.player.name == "Hurrikan" %}
+                                                            <i class="fas fa-otter text-success"></i>
+                                                        {% elif result.player.name == "Giusy" or result.player.name == "Gizmo" %}
+                                                            <i class="fas fa-cat text-info"></i>
+                                                        {% else %}
+                                                            <i class="fas fa-trophy text-warning"></i>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <i class="fas fa-times text-danger"></i>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <!-- Edit and Delete Buttons -->
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editHistoryModal{{ history.id }}">Edit</button>
+                                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteHistoryModal{{ history.id }}">Delete</button>
+                            </div>
+                        </div>  
+                    </div>    
+                </div>   
+            {% endfor %}
+        </div>
+        
+        <!-- Pagenation -->
+        <div class="d-flex justify-content-center mt-4">
+            <ul class="pagination">
+                {% if histories.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">&laquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">&laquo;</a>
+                    </li>
+                {% endif %}
+
+                {% for num in histories.paginator.page_range %}
+                    <li class="page-item {% if num == histories.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if histories.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ histories.paginator.num_pages }}">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">&raquo;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        
+    {% else %}
+    <div class="row p-2">
+        <div class="col text-center">
+            <p class="lead">
+                No Game Records Found
+            </p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row p-2">
+        <div class="col">
+            <!-- Back Button -->
+            <div class="text-center">
+                <a href="{% url 'all_games' %}" class="btn btn-secondary">Back to All Games</a>
+            </div>
+        </div>
+    </div>
+
+</div> 
+
+
+<!-- Modal -->
+{% include 'boardgames/modals/edit_game_modal.html' with game=game %}
+
+{% include 'boardgames/modals/delete_game_modal.html' with game=game %}
+
+{% if histories %}
+    {% for history in histories %}
+        {% include 'boardgames/modals/record_edit_modal.html' with history=history %}
+        {% include 'boardgames/modals/record_delete_modal.html' with history=history %}
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

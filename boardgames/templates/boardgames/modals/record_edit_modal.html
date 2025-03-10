@@ -1,0 +1,132 @@
+
+{% load crispy_forms_tags %}
+
+<!-- Edit History Modal -->
+<div class="modal fade" id="editHistoryModal{{ history.id }}" tabindex="-1" aria-labelledby="editHistoryModalLabel{{ history.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Record</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <form method="POST" action="{% url 'edit_history' history.id %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <!-- Play Date -->
+                    <div class="mb-3">
+                        <label for="playdate{{ history.id }}" class="form-label">Play Date</label>
+                        <input type="date" class="form-control" id="playdate{{ history.id }}" name="play_date" value="{{ history.play_date|date:'Y-m-d' }}">
+                    </div>
+                    
+                    <!-- Duration -->
+                    <div class="mb-3">
+                        <label for="duration{{ history.id }}" class="form-label">Duration (Min)</label>
+                        <input type="number" class="form-control" id="duration{{ history.id }}" name="duration" value="{{ history.duration }}">
+                    </div>
+
+                    <!-- Expansion Checkbox -->
+                    <h5>Expansions</h5>
+                    {% for expansion in expansions %}
+                        <div class="form-check mb-2">
+                            <input type="checkbox" class="form-check-input" id="expansion_{{ expansion.id }}" name="expansions" value="{{ expansion.id }}"
+                                {% if expansion in history.expansions_used.all %}checked{% endif %}>
+                            <label class="form-check-label" for="expansion_{{ expansion.id }}">
+                                {{ expansion.name }}
+                            </label>
+                        </div>
+                    {% endfor %}
+
+                    <hr>
+
+                    <!-- Result (Player, Score, Winner) -->
+                    <h5>Results</h5>
+                    <div id="resultsContainer{{ history.id }}">
+                        {% for result in history.results.all %}
+                            <div class="result-row mb-3 p-3 border rounded d-flex align-items-center gap-3" id="resultRow{{ forloop.counter }}">
+                                <!-- Player dropdown -->
+                                <div class="flex-grow-1">
+                                    <label for="player{{ forloop.counter }}" class="form-label">Player</label>
+                                    <select class="form-select" name="player" id="player{{ forloop.counter }}">
+                                        <option value="">-- Select Player --</option>
+                                        {% for player in players %}
+                                            <option value="{{ player.name }}" {% if result.player.name == player.name %}selected{% endif %}>
+                                                {{ player.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Score input -->
+                                <div style="width: 120px;">
+                                    <label for="score{{ forloop.counter }}" class="form-label">Score</label>
+                                    <input type="number" class="form-control" name="score" id="score{{ forloop.counter }}" value="{{ result.score }}">
+                                </div>
+
+                                <!-- Winner checkbox -->
+                                <div class="form-check mt-4">
+                                    <input type="checkbox" class="form-check-input" name="winner_{{ result.player.name }}" id="winner{{ forloop.counter }}" {% if result.is_winner %}checked{% endif %}>
+                                    <label class="form-check-label" for="winner{{ forloop.counter }}">Winner</label>
+                                </div>
+                                
+                                <!-- Remove button -->
+                               <button type="button" class="btn btn-danger remove-result-btn" onclick="removeResult('resultRow{{ forloop.counter }}')">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Add Result Button -->
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addResult('{{ history.id }}')">+ Add Result</button>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    // Add Result button
+    function addResult(historyId) {
+        const container = document.getElementById(`resultsContainer${historyId}`);
+        const count = container.children.length + 1;
+
+        const newResult = `
+            <div class="result-row mb-3 p-3 border rounded d-flex align-items-center gap-3" id="resultRow${count}">
+                <div class="flex-grow-1">
+                    <label for="player${count}" class="form-label">Player</label>
+                    <select class="form-select" name="player" id="player${count}">
+                        <option value="" selected>-- Select Player --</option>
+                        {% for player in players %}
+                            <option value="{{ player.name }}">{{ player.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="width: 120px;">
+                    <label for="score${count}" class="form-label">Score</label>
+                    <input type="number" class="form-control" name="score" id="score${count}">
+                </div>
+                <div class="form-check mt-4">
+                    <input type="checkbox" class="form-check-input" name="winner[]" value="${count}" id="winner${count}">
+                    <label class="form-check-label" for="winner${count}">Winner</label>
+                </div>
+                <button type="button" class="btn btn-danger remove-result-btn" onclick="removeResult('resultRow${count}')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', newResult);
+    }
+
+    // Remove Result field button
+    function removeResult(rowId) {
+        const row = document.getElementById(rowId);
+        row.remove();
+    }
+</script>

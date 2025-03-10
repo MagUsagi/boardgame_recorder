@@ -1,0 +1,204 @@
+{% extends "./base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<!-- Overview Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Overview</h2>
+    <div class="row g-3">
+        <div class="col-md-3 col-6">
+            <div class="card text-center border-secondary">
+                <a class="btn btn-outline-secondary" href="{% url 'all_games' %}">
+                    <span class="card-body">
+                        <h5 class="card-title">Games</h5>
+                        <p class="display-6">{{ games.count }}</p>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-cente border-secondary">
+                <a class="btn btn-outline-secondary" href="{% url 'players' %}">
+                    <span class="card-body">
+                        <h5 class="card-title">Players</h5>
+                        <p class="display-6">{{ players.count }}</p>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-center border-secondary">
+                <a class="btn btn-outline-secondary disabled">
+                    <span class="card-body">
+                        <h5 class="card-title">Plays</h5>
+                        <p class="display-6">{{ total_plays }}</p>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-center border-secondary">
+                <a class="btn btn-outline-secondary disabled">
+                    <span class="card-body">
+                        <h5 class="card-title">Play Time</h5>
+                        <p class="display-6">{{ total_play_time_hours }}&nbsp;h</p>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="text-center my-4 d-flex justify-content-around">
+    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addRecordModal">
+        <i class="fa-solid fa-file-signature"></i>&nbsp;New Record
+    </button>
+    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addGameModal">
+        <i class="fa-solid fa-dice"></i>&nbsp;New Game
+    </button>
+    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addPlayerModal">
+        <i class="fa-solid fa-people-group"></i>&nbsp;New Player
+    </button>
+</div>
+
+<!-- Recommended Game Section -->
+<div class="card p-3 mb-4">
+    <h3 class="mb-3">Recommend Game</h3>
+    <div id="random-game-display" class="d-flex align-items-center mb-3">
+        {% if random_game %}
+            <img id="random-game-image" src="{{ random_game.image.url }}" alt="{{ random_game.title }}" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+            <a id="random-game-title" href="{% url 'game_detail' slug=random_game.slug %}" class="text-decoration-none text-dark fw-bold">
+                {{ random_game.title }}
+            </a>
+        {% else %}
+            <p>No games available.</p>
+        {% endif %}
+    </div>
+    <button id="random-game-btn" class="btn btn-primary">Let's Play...</button>
+</div>
+
+<!-- Game Lists Section -->
+<div class="container my-5">
+    <div class="row g-3">
+        <!-- Recently Played Games -->
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h3 class="mb-3">Recently Played</h3>
+                <ul class="list-unstyled mb-0">
+                    {% for game in recently_played_games %}
+                        <li>
+                            <a href="{% url 'game_detail' slug=game.slug %}" class="text-decoration-none text-dark d-flex align-items-center my-2">
+                                <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                <div>
+                                    <span class="fw-bold">{{ game.title }}</span><br>
+                                    <small class="text-muted">- Last played: {{ game.last_played_date|default:"N/A" }}</small>
+                                </div>
+                            </a>
+                            <hr class="my-2">
+                        </li>
+                    {% empty %}
+                        <li>No recently played games.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Most Played Games -->
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h3 class="mb-3">Most Played</h3>
+                <ul class="list-unstyled mb-0">
+                    {% for game in most_played_games %}
+                        <li>
+                            <a href="{% url 'game_detail' slug=game.slug %}" class="text-decoration-none text-dark d-flex align-items-center my-2">
+                                <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                <div>   
+                                    <span class="fw-bold">{{ game.title }}</span><br>
+                                    <small class="text-muted"> - Played: {{ game.play_count }} times</small>
+                                </div>
+                            </a>
+                            <hr class="my-2">
+                        </li>
+                    {% empty %}
+                        <li>No most played games.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <!-- Recently Not Played Games -->
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h3 class="mb-3">Recently Not Played</h3>
+                <ul class="list-unstyled mb-0">
+                    {% for game in least_recently_played_games %}
+                        <li>
+                            <a href="{% url 'game_detail' slug=game.slug %}" class="text-decoration-none text-dark d-flex align-items-center my-2">
+                                <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                <div>
+                                    <span class="fw-bold">{{ game.title }}</span><br>
+                                    <small class="text-muted"> - Last played: {{ game.last_played_date|default:"N/A" }}</small>
+                                </div>
+                            </a>
+                            <hr class="my-2">
+                        </li>
+                    {% empty %}
+                        <li>No recently not played games.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Never Played Games -->
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h3 class="mb-3">Never Played</h3>
+                <div class="overflow-auto" style="max-height: 190px;">
+                    <ul class="list-unstyled mb-0">
+                        {% for game in never_played_games %}
+                            <li>
+                                <a href="{% url 'game_detail' slug=game.slug %}" class="text-decoration-none text-dark d-flex align-items-center my-2">
+                                    <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                    <span class="fw-bold">{{ game.title }}</span>
+                                </a>
+                                <hr class="my-2">
+                            </li>
+                        {% empty %}
+                            <li>No never played games.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="games-data" type="application/json">
+    [
+        {% for game in weighted_games %}
+            {
+                "title": "{{ game.title|escapejs }}",
+                "image": "{% if game.image %}{{ game.image.url }}{% else %}/path/to/default-image.png{% endif %}",
+                "url": "{% url 'game_detail' slug=game.slug %}"
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+</script>
+
+<script src="{% static 'js/random_game.js' %}"></script>
+
+<!-- Include Add Record Modal -->
+{% include 'boardgames/modals/record_add_modal.html' %}
+
+{% include 'boardgames/modals/add_game_modal.html' %}
+
+{% include 'boardgames/modals/add_player_modal.html' %}
+
+
+{% endblock %}

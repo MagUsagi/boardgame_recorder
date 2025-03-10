@@ -1,0 +1,187 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!-- Add Game Modal -->
+<div class="modal fade" id="addGameModal" tabindex="-1" aria-labelledby="addGameModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addGameModalLabel">Add a New Game</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'add_game' %}">
+                <div class="modal-body">
+                    {% csrf_token %}
+
+                    <!-- Title -->
+                    {{ add_game_form.title|as_crispy_field }}
+                    <!-- Title error message container -->
+                    <div id="title-errors" class="invalid-feedback d-block"></div>
+
+                    <!-- Image -->
+                    {{ add_game_form.image|as_crispy_field }}
+
+                    <!-- Players -->
+                    <div class="mb-3">
+                        <label for="id_min_players" class="form-label">Players</label>
+
+                        <!-- Error message container -->
+                        <div id="players-errors" class="invalid-feedback d-block"></div>
+ 
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="number" id="id_min_players" name="min_players"
+                                class="form-control {% if add_game_form.min_players.errors %}is-invalid{% endif %}"
+                                placeholder="Min" style="width: 100px;">
+                            <span>-</span>
+                            <input type="number" id="id_max_players" name="max_players"
+                                class="form-control {% if add_game_form.max_players.errors %}is-invalid{% endif %}"
+                                placeholder="Max" style="width: 100px;">
+                            <span>people</span>
+                        </div>
+                    </div>
+
+                    <!-- Duration -->
+                    <div class="mb-3">
+                        <label for="id_min_duration" class="form-label">Duration</label>
+
+                        <!-- Error message container -->
+                        <div id="duration-errors" class="invalid-feedback d-block"></div>
+
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="number" id="id_min_duration" name="min_duration"
+                                class="form-control {% if add_game_form.min_duration.errors %}is-invalid{% endif %}"
+                                placeholder="Min" style="width: 100px;">
+                            <span>-</span>
+                            <input type="number" id="id_max_duration" name="max_duration"
+                                class="form-control {% if add_game_form.max_duration.errors %}is-invalid{% endif %}"
+                                placeholder="Max" style="width: 100px;">
+                            <span>minutes</span>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Description -->
+                    {{ add_game_form.description|as_crispy_field }}
+
+                    <!-- Category -->
+                        <label>Category</label>
+                        <div class="row row-cols-2 g-2">
+                            {% for checkbox in add_game_form.category %}
+                                <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
+                            {% endfor %}
+                        </div>
+
+                    <br>
+
+                    <!-- Expansions -->
+                    <label for="add-expansions">Expansions:</label>
+                    <div id="add-expansions-container">
+                        <input type="text" name="expansions" class="form-control mb-2" placeholder="Expansion name">
+                    </div>
+                    <button type="button" id="add-expansion-btn" class="btn btn-sm btn-outline-secondary">+ Add Expansion</button>
+               
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Game</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add Expansion with duplicate check
+    document.getElementById('add-expansion-btn').addEventListener('click', function() {
+        const container = document.getElementById('add-expansions-container');
+        const inputs = container.querySelectorAll('input[name="expansions"]');
+        const existingExpansions = Array.from(inputs).map(input => input.value.trim().toLowerCase());
+
+        const newExpansion = document.createElement('div');
+        newExpansion.className = 'input-group mb-2';
+        newExpansion.innerHTML = `
+            <input type="text" name="expansions" class="form-control" placeholder="Expansion name">
+            <button type="button" class="btn btn-outline-danger remove-expansion-btn"><i class="fa-solid fa-xmark"></i></button>
+        `;
+
+        const newExpansionInput = newExpansion.querySelector('input[name="expansions"]');
+        newExpansionInput.addEventListener('input', () => {
+            if (existingExpansions.includes(newExpansionInput.value.trim().toLowerCase())) {
+                newExpansionInput.setCustomValidity('This expansion is already added.');
+            } else {
+                newExpansionInput.setCustomValidity('');
+            }
+        });
+
+        container.appendChild(newExpansion);
+        addRemoveButtonListener();
+    });
+
+    // Remove Expansion
+    function addRemoveButtonListener() {
+        document.querySelectorAll('.remove-expansion-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
+    }
+    addRemoveButtonListener();
+
+    // Display errors in the correct fields
+    function displayErrors(errors) {
+        // Clear all error messages first
+        document.getElementById('players-errors').innerHTML = '';
+        document.getElementById('duration-errors').innerHTML = '';
+
+        // Display title errors
+        if (errors.title) {
+            document.getElementById('title-errors').innerHTML = `
+                ${errors.title ? errors.title.join('<br>') : ''}
+            `;
+        }
+        
+        // Display players errors
+        if (errors.min_players || errors.max_players) {
+            document.getElementById('players-errors').innerHTML = `
+                ${errors.min_players ? errors.min_players.join('<br>') : ''}
+                ${errors.max_players ? errors.max_players.join('<br>') : ''}
+            `;
+        }
+
+        // Display duration errors
+        if (errors.min_duration || errors.max_duration) {
+            document.getElementById('duration-errors').innerHTML = `
+                ${errors.min_duration ? errors.min_duration.join('<br>') : ''}
+                ${errors.max_duration ? errors.max_duration.join('<br>') : ''}
+            `;
+        }
+    }
+
+    // Submit add game form with AJAX
+    document.querySelector('#addGameModal form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            const errorContainer = document.getElementById('add-game-errors');
+            if (data.success) {
+                const detailUrl = `{% url 'game_detail' 'dummy-slug' %}`.replace('dummy-slug', data.slug);
+                window.location.href = detailUrl;
+            } else {
+                displayErrors(data.errors); // Display errors in correct fields
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>

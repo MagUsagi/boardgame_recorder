@@ -1,0 +1,246 @@
+{% load crispy_forms_tags %}
+
+
+<!-- Add Record Modal -->
+<div class="modal fade" id="addRecordModal" tabindex="-1" aria-labelledby="addRecordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRecordModalLabel">Add Play Record</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form method="POST" action="{% url 'add_record' %}">
+                {% csrf_token %}
+                {{ result_formset.management_form }}
+                
+                <div class="modal-body">
+                    <!-- Game Title -->
+                    <div class="mb-3">
+                        <label for="game" class="form-label">Game Title</label>
+                        <select class="form-select" id="game" name="game" required>
+                            <option value="" selected>-- Select Game --</option>
+                            {% for game in games %}
+                                <option value="{{ game.id }}">{{ game.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Play Date -->
+                    <div class="mb-3">
+                        <label for="playdate" class="form-label">Play Date</label>
+                        <input type="date" class="form-control" id="playdate" name="play_date" required>
+                    </div>
+
+                    <!-- Duration -->
+                    <div class="mb-3">
+                        <label for="duration" class="form-label">Duration (Min)</label>
+                        <!-- Duration error message container -->
+                        <div id="duration-errors" class="invalid-feedback d-block"></div>
+
+                        <input type="number" class="form-control" id="duration" name="duration" required>
+                    </div>
+
+                    <!-- Expansion Checkbox -->
+                    <div id="expansionsContainer" class="mb-3">
+                        <label class="form-label">Expansions</label>
+                        <div id="expansionCheckboxes">
+                            <p>Please Select Game Title.</p>
+                            <!-- Expansions will be loaded here via AJAX -->
+                        </div>
+                    </div>
+                    
+
+                    <hr>
+
+                    <!-- Results -->
+                    <h5>Results</h5>
+                    <div id="resultsContainer">
+                        <div class="result-row mb-3 p-3 border rounded d-flex align-items-center gap-3" id="resultRow1">
+                            <!-- Player -->
+                            <div class="flex-grow-1">
+                                <label for="player1" class="form-label">Player</label>
+                                <select class="form-select" name="results-0-player" id="player1" required>
+                                    <option value="">-- Select Player --</option>
+                                    {% for player in players %}
+                                        <option value="{{ player.id }}">{{ player.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Score -->
+                            <div style="width: 120px;">
+                                <label for="score1" class="form-label">Score</label>
+                                <input type="number" class="form-control" name="results-0-score" id="score1" placeholder="0">
+                            </div>
+
+                            <!-- Winner -->
+                            <div class="form-check mt-4">
+                                <input type="checkbox" class="form-check-input" name="results-0-is_winner" value="1" id="winner1">
+                                <label class="form-check-label" for="winner1">Winner</label>
+                            </div>
+
+                            <!-- Remove Button -->
+                            <button type="button" class="btn btn-danger remove-result-btn" onclick="removeResult('resultRow${resultCount}', this)">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Add Result Button -->
+                    <button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="addResult()">
+                        + Add Result
+                    </button>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    // Set date today
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+        document.getElementById('playdate').value = today;
+    });
+
+    // Add Result button
+    let resultCount = document.querySelectorAll('#resultsContainer .result-row').length;
+
+    function addResult() {
+        const newResult = `
+            <div class="result-row mb-3 p-3 border rounded d-flex align-items-center gap-3" id="resultRow${resultCount}">
+                <div class="flex-grow-1">
+                    <label for="player${resultCount}" class="form-label">Player</label>
+                    <select class="form-select" name="results-${resultCount}-player" id="player${resultCount}" required>
+                        <option value="">-- Select Player --</option>
+                        {% for player in players %}
+                            <option value="{{ player.id }}">{{ player.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div style="width: 120px;">
+                    <label for="score${resultCount}" class="form-label">Score</label>
+                    <input type="number" class="form-control" name="results-${resultCount}-score" id="score${resultCount}" placeholder="0">
+                </div>
+
+                <div class="form-check mt-4">
+                    <input type="checkbox" class="form-check-input" name="results-${resultCount}-is_winner" value="1" id="winner${resultCount}">
+                    <label class="form-check-label" for="winner${resultCount}">Winner</label>
+                </div>
+
+                <button type="button" class="btn btn-danger remove-result-btn" onclick="removeResult('resultRow${resultCount}', this)">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        `;
+        document.getElementById('resultsContainer').insertAdjacentHTML('beforeend', newResult);
+        resultCount++;
+        document.getElementById('id_results-TOTAL_FORMS').value = resultCount;
+    }
+
+    // Remove Result field button
+    function removeResult(rowId, button) {
+        const row = button.closest('.result-row');
+        row.remove();
+        resultCount--;
+
+        // Update TOTAL_FORMS
+        document.getElementById('id_results-TOTAL_FORMS').value = resultCount;
+
+        // Re-index the remaining result rows
+        const resultRows = document.querySelectorAll('#resultsContainer .result-row');
+        resultRows.forEach((row, index) => {
+            row.id = `resultRow${index}`;
+            row.querySelector('select').name = `results-${index}-player`;
+            row.querySelector('select').id = `player${index}`;
+            row.querySelector('input[type="number"]').name = `results-${index}-score`;
+            row.querySelector('input[type="number"]').id = `score${index}`;
+            row.querySelector('input[type="checkbox"]').name = `results-${index}-is_winner`;
+            row.querySelector('input[type="checkbox"]').id = `winner${index}`;
+            row.querySelector('.remove-result-btn').setAttribute('onclick', `removeResult('resultRow${index}', this)`);
+        });
+    }
+
+    // Expansion checkbox
+    document.getElementById('game').addEventListener('change', function() {
+        const gameId = this.value;
+        const container = document.getElementById('expansionCheckboxes');
+
+        container.innerHTML = '';
+
+        if (gameId) {
+            fetch(`/get_expansions/${gameId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    
+                    if (data.expansions.length > 0) {
+                        data.expansions.forEach(expansion => {
+                            container.innerHTML += `
+                                <div class="form-check mb-2">
+                                    <input type="checkbox" class="form-check-input" id="expansion_${expansion.id}" name="expansions" value="${expansion.id}">
+                                    <label class="form-check-label" for="expansion_${expansion.id}">
+                                        ${expansion.name}
+                                    </label>
+                                </div>`;
+                        });
+                    } else {
+                        container.innerHTML = '<p>No expansions available for this game.</p>';
+                    }
+                });
+        } else {
+            expansionsContainer.style.display = 'block';
+        }
+    });
+
+
+    // Display errors in the correct fields
+    function displayErrors(errors) {
+        // Clear all error messages first
+        document.getElementById('duration-errors').innerHTML = '';
+
+        // Display duration errors
+        if (errors.history_form && errors.history_form.duration) {
+            document.getElementById('duration-errors').innerHTML = `
+                ${errors.history_form.duration.join('<br>')}
+            `;
+        }
+    }
+
+    // Submit add reord form with AJAX
+    document.querySelector('#addRecordModal form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        formData.set('results-TOTAL_FORMS', resultCount);
+
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const detailUrl = `{% url 'game_detail' 'dummy-slug' %}`.replace('dummy-slug', data.slug);
+                window.location.href = detailUrl;
+            } else {
+                displayErrors(data.errors);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+</script>
