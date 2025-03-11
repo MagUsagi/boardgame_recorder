@@ -9,7 +9,7 @@ document.getElementById('random-game-btn').addEventListener('click', function() 
         const game = games[randomIndex];
         display.textContent = game.title;
         display.setAttribute('href', game.url);
-        image.src = game.image;
+        image.style.backgroundImage = game.image;
 
         count++;
         if (count > 20) { // 20回表示したらストップ
@@ -20,7 +20,7 @@ document.getElementById('random-game-btn').addEventListener('click', function() 
             const finalGame = games[finalIndex];
             display.textContent = finalGame.title;
             display.setAttribute('href', finalGame.url);
-            image.src = finalGame.image;
+            image.style.backgroundImage = finalGame.image;
         }
     }, 100);
 });

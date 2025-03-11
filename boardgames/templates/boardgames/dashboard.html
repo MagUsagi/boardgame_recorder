@@ -69,8 +69,15 @@
     <h3 class="mb-3">Recommend Game</h3>
     <div id="random-game-display" class="d-flex align-items-center mb-3">
         {% if random_game %}
-            <img id="random-game-image" src="{{ random_game.image.url }}" alt="{{ random_game.title }}" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
-            <a id="random-game-title" href="{% url 'game_detail' slug=random_game.slug %}" class="text-decoration-none text-dark fw-bold">
+            {% if game.image %}
+                <div id="random-game-image" class="rounded me-3" style="width: 80px; height: 80px; background-image: url('{{ random_game.image.url }}'); background-size: cover; background-position: center;">
+                </div>
+            {% else %}
+                <div  id="random-game-image" class="rounded me-3 d-flex justify-content-center align-items-center bg-secondary text-white" style="width: 50px; height: 50px;">
+                    <i class="fa-solid fa-image"></i>
+                </div>
+            {% endif %}
+                <a id="random-game-title" href="{% url 'game_detail' slug=random_game.slug %}" class="text-decoration-none text-dark fw-bold">
                 {{ random_game.title }}
             </a>
         {% else %}
@@ -91,7 +98,13 @@
                     {% for game in recently_played_games %}
                         <li>
                             <a href="{% url 'game_detail' slug=game.slug %}" class="text-decoration-none text-dark d-flex align-items-center my-2">
-                                <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% if game.image %}
+                                    <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <div class="rounded me-3 d-flex justify-content-center align-items-center bg-secondary text-white" style="width: 50px; height: 50px;">
+                                        <i class="fa-solid fa-image"></i>
+                                    </div>
+                                {% endif %}
                                 <div>
                                     <span class="fw-bold">{{ game.title }}</span><br>
                                     <small class="text-muted">- Last played: {{ game.last_played_date|default:"N/A" }}</small>
@@ -115,8 +128,14 @@
                     {% for game in most_played_games %}
                         <li>
                             <a href="{% url 'game_detail' slug=game.slug %}" class="text-decoration-none text-dark d-flex align-items-center my-2">
-                                <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
-                                <div>   
+                                {% if game.image %}
+                                    <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <div class="rounded me-3 d-flex justify-content-center align-items-center bg-secondary text-white" style="width: 50px; height: 50px;">
+                                        <i class="fa-solid fa-image"></i>
+                                    </div>
+                                {% endif %}
+                                    <div>   
                                     <span class="fw-bold">{{ game.title }}</span><br>
                                     <small class="text-muted"> - Played: {{ game.play_count }} times</small>
                                 </div>
@@ -140,7 +159,13 @@
                     {% for game in least_recently_played_games %}
                         <li>
                             <a href="{% url 'game_detail' slug=game.slug %}" class="text-decoration-none text-dark d-flex align-items-center my-2">
-                                <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% if game.image %}
+                                    <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <div class="rounded me-3 d-flex justify-content-center align-items-center bg-secondary text-white" style="width: 50px; height: 50px;">
+                                        <i class="fa-solid fa-image"></i>
+                                    </div>
+                                {% endif %}
                                 <div>
                                     <span class="fw-bold">{{ game.title }}</span><br>
                                     <small class="text-muted"> - Last played: {{ game.last_played_date|default:"N/A" }}</small>
@@ -164,7 +189,13 @@
                         {% for game in never_played_games %}
                             <li>
                                 <a href="{% url 'game_detail' slug=game.slug %}" class="text-decoration-none text-dark d-flex align-items-center my-2">
-                                    <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                    {% if game.image %}
+                                        <img src="{{ game.image.url }}" alt="{{ game.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                    {% else %}
+                                        <div class="rounded me-3 d-flex justify-content-center align-items-center bg-secondary text-white" style="width: 50px; height: 50px;">
+                                            <i class="fa-solid fa-image"></i>
+                                        </div>
+                                    {% endif %}
                                     <span class="fw-bold">{{ game.title }}</span>
                                 </a>
                                 <hr class="my-2">
@@ -184,7 +215,7 @@
         {% for game in weighted_games %}
             {
                 "title": "{{ game.title|escapejs }}",
-                "image": "{% if game.image %}{{ game.image.url }}{% else %}/path/to/default-image.png{% endif %}",
+                "image": "{% if game.image %}url('{{ game.image.url }}'){% else %}url('{% static 'images/default-image.png' %}'){% endif %}",
                 "url": "{% url 'game_detail' slug=game.slug %}"
             }{% if not forloop.last %},{% endif %}
         {% endfor %}
