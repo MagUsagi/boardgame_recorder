@@ -9,18 +9,18 @@
 
 <div class="container">
     <h1 class="border-bottom mb-4 text-center">{{ game.title }}</h1>
-    <p class="text-center">{{ game.description }}</p>
+    <p class="text-center">{{ game.summary }}</p>
 
     <!-- game detail session -->  
     <div class="card p-4">
-        <div class="row g-4 row-cols-1 row-cols-sm-2">
+        <div class="row g-4 row-cols-1 row-cols-sm-2 align-items-center">
         
             <!-- image area -->
             <div class="col">
-                <div class="row">
-                    <div class="col col-12">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
                         {% if game.image %}  
-                            <img class="img-fluid shadow" src="{{ game.image.url }}" alt="{{ game.title }}">
+                            <img class="img-fluid shadow mx-auto" src="{{ game.image.url }}" alt="{{ game.title }}" style="max-height: 300px; width: auto;">
                         {% else %}
                             <div class="d-flex justify-content-center align-items-center bg-light shadow" style="height: 300px; width: 100%;">
                                 <span>No image Available</span>
@@ -35,33 +35,84 @@
                 <ul class="list-unstyled mb-4">
                     <li><strong>Players:</strong> {{ game.min_players }} - {{ game.max_players }} people</li>
                     <li><strong>Game Time:</strong> {{ game.min_duration }} - {{ game.max_duration }} min</li>
+                    <br>
                     <li>
-                        <strong>Categories:</strong>
+                        <strong>Categories:</strong><br>
                         {% for category in game.category.all %}
-                            <span class="badge rounded-pill bg-secondary">
+                            <a
+                                tabindex="0"
+                                role="button"
+                                class="badge rounded-pill bg-secondary link-underline link-underline-opacity-0"
+                                data-bs-container="body"
+                                data-bs-toggle="popover"
+                                data-bs-placement="bottom"
+                                data-bs-content="{{ category.description }}"
+                                data-bs-trigger="focus"
+                            >
                                 {{ category.name }}
-                            </span>
+                            </a>
                         {% empty %}
                             <span class="text-muted">No categories</span>
                         {% endfor %}
                     </li>
-                    {% if game.expansions.all %}
-                        <li><strong>Expansions:</strong></li>
-                        <ul>
-                            {% for expansion in game.expansions.all %}
-                                <li>{{ expansion.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </ul>
 
-                <div class="mt-auto d-flex justify-content-center gap-2">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGameModal">Edit</button>
-                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGameModal">Delete Game</button>
-                </div>        
+                    <br>
+                    
+                    <li>
+                        <strong>Mechanics:</strong><br>
+                        {% for mechanic in game.mechanic.all %}
+                        <a
+                            tabindex="0"
+                            role="button"
+                            class="badge rounded-pill bg-info link-underline link-underline-opacity-0"
+                            data-bs-container="body"
+                            data-bs-toggle="popover"
+                            data-bs-placement="bottom"
+                            data-bs-content="{{ mechanic.description }}"
+                            data-bs-trigger="focus"
+                        >
+                            {{ mechanic.name }}
+                        </a>
+                        {% empty %}
+                            <span class="text-muted">No mechanics</span>
+                        {% endfor %}
+                    </li>
+
+                    <br>
+                    
+                    <li>
+                        <strong>Expansions:</strong><br>
+                        {% for expansion in game.expansions.all %}
+                            <span class="badge bg-dark">
+                                {{ expansion.name }}
+                            </span>
+                        {% empty %}
+                            <span class="text-muted">No expansions</span>
+                        {% endfor %}
+                    </li>
+
+                </ul>    
             </div>
-
         </div>
+
+        <div>
+            <strong>Description:</strong><br>
+            {% if game.description %}
+                <span>{{ game.description|linebreaksbr }}</span>
+            {% else %}
+                <span class="text-muted">No Description</span>
+            {% endif %}    
+        </div>
+
+        <br>
+
+        <div class="mt-auto d-flex justify-content-center gap-2">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGameModal">Edit</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGameModal">Delete Game</button>
+        </div>        
+            
+
+        
     </div>
 
     <br><br>
@@ -193,7 +244,15 @@
         </div>
     </div>
 
-</div> 
+</div>
+<script>
+    // Popover
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    const popover = new bootstrap.Popover('.popover-dismiss', {
+        trigger: 'focus'
+    })
+</script>
 
 
 <!-- Modal -->

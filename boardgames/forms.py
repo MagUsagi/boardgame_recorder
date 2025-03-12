@@ -1,11 +1,16 @@
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Game, Category, History, Result, Expansion, Player
+from .models import Game, Category, Mechanic, History, Result, Expansion, Player
 
 
 class GameForm(forms.ModelForm):
     category = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    mechanic = forms.ModelMultipleChoiceField(
+        queryset=Mechanic.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
@@ -29,11 +34,11 @@ class GameForm(forms.ModelForm):
         max_value=999,
         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Max', 'style': 'width: 70px;'})
     )
-    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3}), required=False)
+    summary = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3}), required=False)
 
     class Meta:
         model = Game
-        fields = ['title', 'image', 'min_players', 'max_players', 'min_duration', 'max_duration', 'description', 'category']
+        fields = ['title', 'image', 'min_players', 'max_players', 'min_duration', 'max_duration', 'summary', 'description', 'category', 'mechanic']
 
     def clean(self):
         cleaned_data = super().clean()

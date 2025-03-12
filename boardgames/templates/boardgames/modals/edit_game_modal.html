@@ -66,16 +66,30 @@
 
                     <br>
 
+                    <!-- Summary -->
+                    {{ edit_game_form.summary|as_crispy_field }}
+
                     <!-- Description -->
                     {{ edit_game_form.description|as_crispy_field }}
 
+
                     <!-- Category -->
-                        <label>Category</label>
-                        <div class="row row-cols-2 g-2">
-                            {% for checkbox in edit_game_form.category %}
-                                <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
-                            {% endfor %}
-                        </div>
+                    <label>Category</label>
+                    <div class="row row-cols-2 g-2">
+                        {% for checkbox in edit_game_form.category %}
+                            <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <br>
+
+                    <!-- Mechanic -->
+                    <label>Mechanic</label>
+                    <div class="row row-cols-2 g-2">
+                        {% for checkbox in edit_game_form.mechanic %}
+                            <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
+                        {% endfor %}
+                    </div>
 
                     <br>
 
@@ -197,7 +211,8 @@
             if (data.success) { 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 setTimeout(() => {            
-                    location.reload(); // Refresh the page or dynamically update content
+                    const newSlug = data.slug;
+                    window.location.href = `/games/${newSlug}`; // Refresh the page or dynamically update content
                 }, 500);
             } else {
                 displayErrors(data.errors); // Display errors in correct fields

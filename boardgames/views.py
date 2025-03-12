@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Game, History, Expansion, Result, Player
 from .forms import GameForm, HistoryForm, ResultFormSet, PlayerForm
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Count, Sum
 import random
 from datetime import timedelta, date
+from django.urls import reverse
 
 # Create your views here.
 
@@ -236,7 +237,8 @@ def edit_game(request, slug):
     if request.method == 'POST':
         form = GameForm(request.POST, request.FILES, instance=game)
         if form.is_valid():
-            form.save()
+            game = form.save()
+
             messages.success(request, "Game updated successfully")
 
             Expansion.objects.filter(game=game).delete()
@@ -249,9 +251,9 @@ def edit_game(request, slug):
                 return JsonResponse({
                     'success': True,
                     'message': 'Game updated successfully!',
+                    'slug': game.slug,
                     'game': {
                         'title': game.title,
-                        'slug': game.slug,
                         'min_players': game.min_players,
                         'max_players': game.max_players,
                         'min_duration': game.min_duration,
@@ -260,7 +262,7 @@ def edit_game(request, slug):
                     }
                 })
             
-            return redirect('game_detail', slug=game.slug)
+            return HttpResponseRedirect(reverse('game_detail', kwargs={'slug': game.slug}))
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({'success': False, 'errors': form.errors})

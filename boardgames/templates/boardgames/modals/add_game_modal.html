@@ -61,16 +61,29 @@
 
                     <br>
 
+                    <!-- Summary -->
+                    {{ add_game_form.summary|as_crispy_field }}
+
                     <!-- Description -->
                     {{ add_game_form.description|as_crispy_field }}
 
                     <!-- Category -->
-                        <label>Category</label>
-                        <div class="row row-cols-2 g-2">
-                            {% for checkbox in add_game_form.category %}
-                                <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
-                            {% endfor %}
-                        </div>
+                    <label>Category</label>
+                    <div class="row row-cols-2 g-2">
+                        {% for checkbox in add_game_form.category %}
+                            <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <br>
+
+                    <!-- Mechanic -->
+                    <label>Mechanic</label>
+                    <div class="row row-cols-2 g-2">
+                        {% for checkbox in add_game_form.mechanic %}
+                            <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
+                        {% endfor %}
+                    </div>
 
                     <br>
 
