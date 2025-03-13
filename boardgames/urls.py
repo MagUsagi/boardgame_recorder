@@ -16,7 +16,13 @@ urlpatterns = [
     path('history/<int:history_id>/delete/', views.delete_history, name='delete_history'),
     path('players/', views.players, name='players'),
     path('add_player/', views.add_player, name='add_player'),
-    path('records/', views.records, name='records'),
+    path('settings/', views.settings, name='settings'),
+    path('add_category/', views.add_category, name='add_category'),
+    path('edit_category/<int:category_id>/', views.edit_category, name='edit_category'),
+    path('delete_category/', views.delete_category, name='delete_category'),
+    path('add_mechanic/', views.add_mechanic, name='add_mechanic'),
+    path('edit_mechanic/<int:mechanic_id>/', views.edit_mechanic, name='edit_mechanic'),
+    path('delete_mechanic/', views.delete_mechanic, name='delete_mechanic'),
 ]
 
 if settings.DEBUG:

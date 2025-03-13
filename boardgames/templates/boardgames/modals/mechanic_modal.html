@@ -1,0 +1,73 @@
+{% load crispy_forms_tags %}
+
+<!-- Add Mechanic Modal -->
+<div class="modal fade" id="addMechanicModal" tabindex="-1" aria-labelledby="addMechanicModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMechanicModalLabel">Add Mechanic</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{% url 'add_mechanic' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {{ mechanic_form|crispy }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Mechanic</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Mechanic Modal -->
+<div class="modal fade" id="editMechanicModal{{ mechanic.id }}" tabindex="-1" aria-labelledby="editMechanicModalLabel{{ mechanic.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editMechanicModalLabel{{ mechanic.id }}">Edit Mechanic</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{% url 'edit_mechanic' mechanic.id %}">
+                {% csrf_token %}
+                
+                <div class="modal-body">
+                    <label for="editMechanicName{{ mechanic.id }}">Mechanic Name</label>
+                    <input type="text" class="form-control" id="editMechanicName{{ mechanic.id }}" name="name" value="{{ mechanic.name }}" required>
+
+                    <label for="editMechanicDescription{{ mechanic.id }}">Description</label>
+                    <textarea class="form-control" id="editMechanicDescription{{ mechanic.id }}" name="description">{{ mechanic.description }}</textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update Mechanic</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Mechanic Modal -->
+<div class="modal fade" id="deleteMechanicModal{{ mechanic.id }}" tabindex="-1" aria-labelledby="deleteMechanicModalLabel{{ mechanic.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMechanicModalLabel{{ mechanic.id }}">Delete Mechanic</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{% url 'delete_mechanic' %}">
+                {% csrf_token %}
+                <input type="hidden" name="mechanic_id" value="{{ mechanic.id }}">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete <strong>{{ mechanic.name }}</strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

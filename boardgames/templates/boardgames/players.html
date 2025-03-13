@@ -6,10 +6,32 @@
 {% load static %}
 
 {% block content %}
-
-{% for player in players %}
-    <h5>{{ player.name }}</h5>
-{% endfor %}
-
-
+    <h1>Players</h1>
+    <div class="accordion" id="playerAccordion">
+        {% for stat in player_stats %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ stat.player.id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ stat.player.id }}">
+                        {{ stat.player.name }}
+                    </button>
+                </h2>
+                <div id="collapse{{ stat.player.id }}" class="accordion-collapse collapse" data-bs-parent="#playerAccordion">
+                    <div class="accordion-body">
+                        <p><strong>Total Games Played:</strong> {{ stat.total_games }}</p>
+                        <p><strong>Win Rate:</strong> {{ stat.win_rate }}%</p>
+                        <p><strong>Total Play Time:</strong> {{ stat.total_hours }} hours</p>
+                        
+                        <h5>Favorite Games (Top 3):</h5>
+                        <ul>
+                            {% for game in stat.favorite_games %}
+                                <li>{{ game.game__title }} ({{ game.game_count }} plays)</li>
+                            {% empty %}
+                                <li>No games played yet.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Game, History, Expansion, Result, Player
-from .forms import GameForm, HistoryForm, ResultFormSet, PlayerForm
+from .models import Game, History, Expansion, Result, Player, Category, Mechanic
+from .forms import GameForm, HistoryForm, ResultFormSet, PlayerForm, CategoryForm, MechanicForm
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, F
 import random
 from datetime import timedelta, date
 from django.urls import reverse
+from django.db.models.functions import Coalesce
 
 # Create your views here.
 
@@ -288,9 +289,32 @@ def delete_game(request, slug):
 
 
 def players(request):
-    players = Player.objects.all()
+    players = Player.objects.annotate(
+        total_games=Count('results__history'),
+        total_wins=Count('results', filter=F('results__is_winner')),
+        total_duration=Coalesce(Sum('results__history__duration'), 0),
+    ).order_by('name')
 
-    return render(request, 'boardgames/players.html', {'players': players})
+    player_stats = []
+    for player in players:
+        win_rate = (player.total_wins / player.total_games * 100) if player.total_games > 0 else 0
+        total_hours = round(player.total_duration / 60, 2)
+
+        favorite_games = (History.objects
+                          .filter(results__player=player)
+                          .values('game__title')
+                          .annotate(game_count=Count('game'))
+                          .order_by('-game_count')[:3])
+        
+        player_stats.append({
+            'player': player,
+            'win_rate': round(win_rate, 2),
+            'total_games': player.total_games,
+            'total_hours': total_hours,
+            'favorite_games': favorite_games,
+        })
+
+    return render(request, 'boardgames/players.html', {'player_stats': player_stats})
 
 
 def add_player(request):
@@ -309,5 +333,71 @@ def add_player(request):
     return JsonResponse({'success': False, 'errors': {'non_field_errors': ['Invalid request']}})
 
 
-def records(request):
-    return render(request, 'boardgames/records.html')
+def settings(request):
+    categories = Category.objects.all()
+    category_form = CategoryForm()
+
+    mechanics = Mechanic.objects.all()
+    mechanic_form = MechanicForm()
+
+    return render(request, 'boardgames/settings.html', {
+        'categories': categories,
+        'category_form': category_form,
+        'mechanics': mechanics,
+        'mechanic_form': mechanic_form,
+    })
+
+def add_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Category added successfully")
+            return redirect(reverse('settings'))
+    return redirect(reverse('settings'))
+
+def edit_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    if request.method == 'POST':
+        category.name = request.POST.get('name')
+        category.description = request.POST.get('description')
+        category.save()
+        messages.success(request, "Category updated successfully")
+        return redirect('settings')
+    return render(request, 'boardgames/settings.html', {'categories': Category.objects.all()})
+
+def delete_category(request):
+    if request.method == 'POST':
+        category = get_object_or_404(Category, id=request.POST.get('category_id'))
+        category.delete()
+        messages.error(request, "Category deleted")
+        return redirect(reverse('settings'))
+    return redirect(reverse('settings'))
+
+def add_mechanic(request):
+    if request.method == 'POST':
+        form = MechanicForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Mechanic added successfully")
+            return redirect(reverse('settings'))
+    return redirect(reverse('settings'))
+
+def edit_mechanic(request, mechanic_id):
+    mechanic = get_object_or_404(Mechanic, id=mechanic_id)
+    if request.method == 'POST':
+        mechanic.name = request.POST.get('name')
+        mechanic.description = request.POST.get('description')
+        mechanic.save()
+        messages.success(request, "Mechanic updated successfully")
+        return redirect('settings')
+    return render(request, 'boardgames/settings.html', {'mechanics': Mechanic.objects.all()})
+
+def delete_mechanic(request):
+    if request.method == 'POST':
+        mechanic = get_object_or_404(Mechanic, id=request.POST.get('mechanic_id'))
+        mechanic.delete()
+        messages.error(request, "Mechanic deleted")
+        return redirect(reverse('settings'))
+    return redirect(reverse('settings'))
+

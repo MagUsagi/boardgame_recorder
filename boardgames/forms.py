@@ -120,3 +120,15 @@ class PlayerForm(forms.ModelForm):
     class Meta:
         model = Player
         fields = ['name']
+
+class CategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ['name', 'description']
+
+class MechanicForm(forms.ModelForm):
+
+    class Meta:
+        model = Mechanic
+        fields = ['name', 'description']
