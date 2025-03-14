@@ -115,15 +115,9 @@ def add_record(request):
 
             messages.success(request, "Play record added successfully!")
 
-            return JsonResponse({'success': True, 'slug': history.game.slug})
-        
-        errors = {
-            'history_form': history_form.errors,
-            'result_formset': result_formset.errors,
-        }
-        return JsonResponse({'success': False, 'errors': errors}, status=400)
-    
-    return JsonResponse({'success': False, 'errors': {'__all__': 'Invalid request'}}, status=400)
+            return redirect('game_detail', slug=history.game.slug)
+        else:
+            return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 def get_expansions(request, game_id):

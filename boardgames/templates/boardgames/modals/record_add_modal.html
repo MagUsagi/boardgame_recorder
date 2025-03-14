@@ -14,6 +14,11 @@
                 {% csrf_token %}
                 {{ result_formset.management_form }}
                 
+                <input type="hidden" name="results-TOTAL_FORMS" value="1" id="id_results-TOTAL_FORMS">
+                <input type="hidden" name="results-INITIAL_FORMS" value="0" id="id_results-INITIAL_FORMS">
+                <input type="hidden" name="results-MIN_NUM_FORMS" value="0" id="id_results-MIN_NUM_FORMS">
+                <input type="hidden" name="results-MAX_NUM_FORMS" value="1000" id="id_results-MAX_NUM_FORMS">
+
                 <div class="modal-body">
                     <!-- Game Title -->
                     <div class="mb-3">
@@ -215,32 +220,33 @@
     }
 
     // Submit add reord form with AJAX
-    document.querySelector('#addRecordModal form').addEventListener('submit', function(e) {
-        e.preventDefault();
+    // document.querySelector('#addRecordModal form').addEventListener('submit', function(e) {
+    //     e.preventDefault();
 
-        const formData = new FormData(this);
+    //     const formData = new FormData(this);
 
-        formData.set('results-TOTAL_FORMS', resultCount);
+    //     formData.set('results-TOTAL_FORMS', resultCount);
 
-        fetch(this.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const detailUrl = `{% url 'game_detail' 'dummy-slug' %}`.replace('dummy-slug', data.slug);
-                window.location.href = detailUrl;
-            } else {
-                displayErrors(data.errors);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
+    //     fetch(this.action, {
+    //         method: 'POST',
+    //         body: formData,
+    //         headers: {
+    //             'X-Requested-With': 'XMLHttpRequest',
+    //         },
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.success) {
+    //             const detailUrl = `{% url 'game_detail' 'dummy-slug' %}`.replace('dummy-slug', data.slug);
+    //             window.location.href = detailUrl;
+    //         } else {
+    //             console.error('Errors:', data.errors);
+    //             displayErrors(data.errors);
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    // });
 
 </script>
