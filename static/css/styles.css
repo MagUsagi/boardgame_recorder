@@ -37,4 +37,6 @@
 .game-tags-list {  
     column-count: 2;
     list-style: none;
+    padding: 0;
+    list-style-type: none;
 }
