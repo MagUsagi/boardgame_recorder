@@ -26,3 +26,9 @@
     color: #dc3545;
     margin-bottom: 1rem;
 }
+
+.select-disabled {
+    pointer-events: none !important;
+    opacity: 1 !important;
+    background-color: var(--bs-secondary-bg) !important;
+}

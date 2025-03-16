@@ -39,11 +39,12 @@ def dashboard(request):
     random_game = random.choice(weighted_games) if weighted_games else None
 
     # Recently played games (3 most recent)
-    recent_histories = History.objects.select_related('game').order_by('-play_date')[:3]
+    recent_histories = History.objects.select_related('game').order_by('-play_date', '-play_time')[:3]
     recently_played_games = [{
         'title': history.game.title,
         'image': history.game.image,
         'last_played_date': history.play_date,
+        'last_played_time': history.play_time,
         'slug': history.game.slug
     }
         for history in recent_histories
@@ -117,6 +118,10 @@ def add_record(request):
 
             return redirect('game_detail', slug=history.game.slug)
         else:
+            print(result_formset.errors)
+            print("Initial formset data:", result_formset.initial_forms)
+            print("Received POST data:", request.POST)
+            print(history_form.errors)
             return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
@@ -134,6 +139,7 @@ def all_games(request):
 
 def game_detail(request, slug):
     game = get_object_or_404(Game, slug=slug)
+    games = Game.objects.all()
     histories = History.objects.filter(game=game).prefetch_related('results').order_by('-play_date', '-id')
     players = Player.objects.all()
     expansions = Expansion.objects.filter(game=game)
@@ -145,6 +151,7 @@ def game_detail(request, slug):
 
     return render(request, 'boardgames/game_detail.html', {
         'game': game,
+        'games': games,
         'histories': page_obj,
         'players': players,
         'expansions': expansions,

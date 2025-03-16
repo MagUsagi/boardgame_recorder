@@ -13,11 +13,21 @@
             <form method="POST" action="{% url 'edit_history' history.id %}">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <!-- Play Date -->
-                    <div class="mb-3">
-                        <label for="playdate{{ history.id }}" class="form-label">Play Date</label>
-                        <input type="date" class="form-control" id="playdate{{ history.id }}" name="play_date" value="{{ history.play_date|date:'Y-m-d' }}">
+
+                    <div class="row d-flex justify-content-around">
+                        <!-- Play Date -->
+                        <div class="mb-3 col-6">
+                            <label for="playdate{{ history.id }}" class="form-label">Play Date</label>
+                            <input type="date" class="form-control" id="playdate{{ history.id }}" name="play_date" value="{{ history.play_date|date:'Y-m-d' }}">
+                        </div>
+
+                        <!-- Play Time -->
+                        <div class="mb-3 col-6">
+                            <label for="playtime{{ history.id }}" class="form-label">Play Time</label>
+                            <input type="time" class="form-control" id="playtime{{ history.id }}" name="play_time" value="{{ history.play_time|time:'H:i'|default:'' }}">
+                        </div>
                     </div>
+
                     
                     <!-- Duration -->
                     <div class="mb-3">
@@ -70,7 +80,7 @@
                                 </div>
                                 
                                 <!-- Remove button -->
-                               <button type="button" class="btn btn-danger remove-result-btn" onclick="removeResult('resultRow{{ forloop.counter }}')">
+                               <button type="button" class="btn btn-danger remove-result-btn" onclick="removeResultEdit('resultRow{{ forloop.counter }}')">
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
@@ -78,7 +88,7 @@
                     </div>
                     
                     <!-- Add Result Button -->
-                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addResult('{{ history.id }}')">+ Add Result</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addResultEdit('{{ history.id }}')">+ Add Result</button>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -93,7 +103,7 @@
 <script>
 
     // Add Result button
-    function addResult(historyId) {
+    function addResultEdit(historyId) {
         const container = document.getElementById(`resultsContainer${historyId}`);
         const count = container.children.length + 1;
 
@@ -116,7 +126,7 @@
                     <input type="checkbox" class="form-check-input" name="winner[]" value="${count}" id="winner${count}">
                     <label class="form-check-label" for="winner${count}">Winner</label>
                 </div>
-                <button type="button" class="btn btn-danger remove-result-btn" onclick="removeResult('resultRow${count}')">
+                <button type="button" class="btn btn-danger remove-result-btn" onclick="removeResultEdit('resultRow${count}')">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -125,7 +135,7 @@
     }
 
     // Remove Result field button
-    function removeResult(rowId) {
+    function removeResultEdit(rowId) {
         const row = document.getElementById(rowId);
         row.remove();
     }

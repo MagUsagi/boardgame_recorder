@@ -122,6 +122,13 @@
     <!-- game records session -->
     <h2 class="border-bottom mt-5 text-center">Game Records</h2> 
 
+    <!-- Add New Record ボタン -->
+     <div class="mb-2 d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecordModal">
+            Add New Record
+        </button>
+    </div>
+
     {% if histories %}
         <div class="accordion" id="gameHistoryAccordion">
             {% for history in histories %}
@@ -261,6 +268,8 @@
 {% include 'boardgames/modals/edit_game_modal.html' with game=game %}
 
 {% include 'boardgames/modals/delete_game_modal.html' with game=game %}
+
+{% include 'boardgames/modals/record_add_modal.html' %}
 
 {% if histories %}
     {% for history in histories %}

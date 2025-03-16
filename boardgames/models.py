@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.text import slugify
 import os
 from django.dispatch import receiver
+from datetime import time
+from django.db.models.functions import Lower
 
 # Create your models here.
 
@@ -11,7 +13,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'categories'
-        ordering = ['name']
+        ordering = [Lower('name')] # Order by name and caseinsensitiv
 
     def __str__(self):
         return self.name
@@ -23,7 +25,7 @@ class Mechanic(models.Model):
 
     class Meta:
         verbose_name_plural = 'mechanics'
-        ordering = ['name']
+        ordering = [Lower('name')] # Order by name and caseinsensitiv
 
     def __str__(self):
         return self.name
@@ -41,6 +43,9 @@ class Game(models.Model):
     slug = models.SlugField(unique=True)
     category = models.ManyToManyField(Category, blank=True)
     mechanic = models.ManyToManyField(Mechanic, blank=True)
+
+    class Meta:
+        ordering = [Lower('title')] # Order by title and caseinsensitiv
 
     def save(self, *args, **kwargs):
         if not self.slug or self.title != Game.objects.get(pk=self.pk).title:
@@ -70,6 +75,9 @@ class Expansion(models.Model):
 class Player(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
+    class Meta:
+        ordering = [Lower('name')] # Order by name and caseinsensitiv
+
     def __str__(self):
         return self.name
     
@@ -77,14 +85,16 @@ class Player(models.Model):
 class History(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='histories')
     play_date = models.DateField()
+    play_time = models.TimeField(default=time(0, 0))
     duration = models.PositiveIntegerField(blank=True, null=True)
     expansions_used = models.ManyToManyField(Expansion, blank=True)
 
     class Meta:
         verbose_name_plural = 'histories'
+        ordering = ['-play_date', '-play_time']
 
     def __str__(self):
-        return f"{self.game.title} on {self.play_date}"
+        return f"{self.game.title} - {self.play_date} {self.play_time.strftime('%H:%M')}"
     
 
 class Result(models.Model):

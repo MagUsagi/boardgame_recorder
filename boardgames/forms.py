@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import inlineformset_factory
 from .models import Game, Category, Mechanic, History, Result, Expansion, Player
+import datetime
 
 
 class GameForm(forms.ModelForm):
@@ -62,6 +63,10 @@ class HistoryForm(forms.ModelForm):
         widget=forms.DateInput(attrs={'type': 'date'}),
         initial=forms.fields.datetime.date.today
     )
+    play_time = forms.TimeField(
+        widget=forms.TimeInput(attrs={'type': 'time'}),
+        initial=lambda: datetime.datetime.now().time().replace(microsecond=0)
+    )
     duration = forms.IntegerField(
         min_value=1,
         max_value=999,
@@ -79,7 +84,7 @@ class HistoryForm(forms.ModelForm):
 
     class Meta:
         model = History
-        fields = ['game', 'play_date', 'duration', 'expansions']
+        fields = ['game', 'play_date', 'play_time', 'duration', 'expansions']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
