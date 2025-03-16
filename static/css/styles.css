@@ -32,3 +32,9 @@
     opacity: 1 !important;
     background-color: var(--bs-secondary-bg) !important;
 }
+
+ /* class to order game tags (category and mechanics) into two rows */
+.game-tags-list {  
+    column-count: 2;
+    list-style: none;
+}

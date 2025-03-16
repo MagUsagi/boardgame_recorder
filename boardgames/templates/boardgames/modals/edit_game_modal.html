@@ -75,20 +75,28 @@
 
                     <!-- Category -->
                     <label>Category</label>
-                    <div class="row row-cols-2 g-2">
-                        {% for checkbox in edit_game_form.category %}
-                            <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
-                        {% endfor %}
+                    <div class="row" >
+                        <div class="col-12">
+                            <ul class="game-tags-list">
+                                {% for checkbox in edit_game_form.category %}
+                                    <li> {{ checkbox.tag }} {{ checkbox.choice_label }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
 
                     <br>
 
                     <!-- Mechanic -->
                     <label>Mechanic</label>
-                    <div class="row row-cols-2 g-2">
-                        {% for checkbox in edit_game_form.mechanic %}
-                            <div class="col">{{ checkbox.tag }} {{ checkbox.choice_label }}</div>
-                        {% endfor %}
+                    <div class="row" >
+                        <div class="col-12">
+                            <ul class="game-tags-list">
+                                {% for checkbox in edit_game_form.mechanic %}
+                                    <li> {{ checkbox.tag }} {{ checkbox.choice_label }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
 
                     <br>

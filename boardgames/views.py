@@ -210,6 +210,7 @@ def delete_history(request, history_id):
 def add_game(request):
     if request.method == 'POST':
         form = GameForm(request.POST, request.FILES)
+        
         if form.is_valid():
             game = form.save(commit=False)
             game.save()
