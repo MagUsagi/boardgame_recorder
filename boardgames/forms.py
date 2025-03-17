@@ -137,3 +137,40 @@ class MechanicForm(forms.ModelForm):
     class Meta:
         model = Mechanic
         fields = ['name', 'description']
+
+
+# Search form
+class GameSearchForm(forms.Form):
+
+    key_word = forms.CharField(
+        label='Search',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control',
+                                      'placeholder': 'Title or Description'})
+    )
+
+    search_category = forms.ModelMultipleChoiceField(
+        label='Category',
+        required=False,
+        queryset=Category.objects.order_by('name'),
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+    )
+
+    search_mechanic = forms.ModelMultipleChoiceField(
+        label='Mechanic',
+        required=False,
+        queryset=Mechanic.objects.order_by('name'),
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+    )
+
+    players = forms.IntegerField(
+        label='Players',
+        required=False,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'min': 1})
+    )
+
+    duration = forms.IntegerField(
+        label='Duration',
+        required=False,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'min': 1})
+    )

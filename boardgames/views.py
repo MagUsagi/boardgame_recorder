@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Game, History, Expansion, Result, Player, Category, Mechanic
-from .forms import GameForm, HistoryForm, ResultFormSet, PlayerForm, CategoryForm, MechanicForm
+from .forms import GameForm, HistoryForm, ResultFormSet, PlayerForm, CategoryForm, MechanicForm, GameSearchForm
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.db.models import Count, Sum, F
+from django.db.models import Count, Sum, F, Q
 import random
 from datetime import timedelta, date
 from django.urls import reverse
-from django.db.models.functions import Coalesce
+from django.db.models.functions import Coalesce, Lower
 
 # Create your views here.
 
@@ -133,9 +133,65 @@ def get_expansions(request, game_id):
 def all_games(request):
     games = Game.objects.all()
     add_game_form = GameForm()
-    
-    return render(request, 'boardgames/all_games.html', {'games': games, 'add_game_form': add_game_form,})
+    search_form = GameSearchForm(request.GET)
+    categories = Category.objects.annotate(game_count=Count('game')).order_by(Lower('name'))
+    mechanics = Mechanic.objects.annotate(game_count=Count('game')).order_by(Lower('name'))
+       
+    # Get the selected filters from request.GET
+    selected_categories = request.GET.getlist("search_category")
+    selected_mechanics = request.GET.getlist("search_mechanic")
+    selected_players = request.GET.getlist("search_players")
+    selected_durations = request.GET.getlist("search_duration") 
 
+
+    if search_form.is_valid():
+        query = search_form.cleaned_data.get('key_word')
+        search_categories = search_form.cleaned_data.get('search_category')
+        search_mechanics = search_form.cleaned_data.get('search_mechanic')
+        search_players = selected_players
+        search_durations = selected_durations   
+
+        if query:
+            games = games.filter(Q(title__icontains=query) | Q(description__icontains=query) | Q(summary__icontains=query)).distinct()
+
+        if search_categories:
+            games = games.filter(category__in=search_categories).distinct()
+
+        if search_mechanics:
+            games = games.filter(mechanic__in=search_mechanics).distinct()
+
+        if search_players:
+            search_players = [int(p) for p in search_players]
+            conditions=Q(min_players__lte=max(search_players), max_players__gte=min(search_players))
+            if 10 in search_players:
+                conditions |= Q(max_players__gte=10)  # Include 10 or more players
+            games = games.filter(conditions)
+
+        if search_durations:
+            search_durations = [int(d) for d in search_durations]
+            conditions=Q(min_duration__lte=max(search_durations), max_duration__gte=min(search_durations))
+            if 5 in search_durations:
+                conditions |= Q(max_duration__lte=5)  # Include games 5 minutes or shorter
+            if 90 in search_durations:
+                conditions |= Q(min_duration__gte=90)  # Include games 90 minutes or longer
+            games = games.filter(conditions)
+    
+    # Pass the selected filters and other context to the template
+    context = {
+        'games': games,
+        'add_game_form': add_game_form,
+        'search_form': search_form,
+        'categories': categories,
+        'mechanics': mechanics,
+        "player_numbers": list(range(1, 11)),
+        "durations": [5, 15, 30, 45, 60, 75, 90],
+        'selected_categories': selected_categories,
+        'selected_mechanics': selected_mechanics,
+        'selected_players': selected_players,
+        'selected_durations': selected_durations,
+    }
+           
+    return render(request, 'boardgames/all_games.html', context)
 
 def game_detail(request, slug):
     game = get_object_or_404(Game, slug=slug)
