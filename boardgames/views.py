@@ -9,6 +9,7 @@ import random
 from datetime import timedelta, date
 from django.urls import reverse
 from django.db.models.functions import Coalesce, Lower
+from django.utils.translation import gettext as _
 
 # Create your views here.
 
@@ -114,7 +115,7 @@ def add_record(request):
                 result.score = result.score or 0
                 result.save()
 
-            messages.success(request, "Play record added successfully!")
+            messages.success(request, _("Play record added successfully!"))
 
             return redirect('game_detail', slug=history.game.slug)
         else:
@@ -247,7 +248,7 @@ def edit_history(request, history_id):
                 )
         
         # Add success message after the record is updated
-        messages.success(request, "Play record updated successfully!")
+        messages.success(request, _("Play record updated successfully!"))
 
         return redirect('game_detail', slug=history.game.slug)
     else:
@@ -272,7 +273,7 @@ def add_game(request):
             game.save()
             form.save_m2m()
 
-            messages.success(request, "Game added successfully")
+            messages.success(request, _("Game added successfully"))
 
             expansion_names = request.POST.getlist('expansions')
             for name in expansion_names:
@@ -298,7 +299,7 @@ def edit_game(request, slug):
         if form.is_valid():
             game = form.save()
 
-            messages.success(request, "Game updated successfully")
+            messages.success(request, _("Game updated successfully"))
 
             Expansion.objects.filter(game=game).delete()
             expansion_names = request.POST.getlist('expansions')
@@ -309,7 +310,7 @@ def edit_game(request, slug):
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
-                    'message': 'Game updated successfully!',
+                    'message': _('Game updated successfully!'),
                     'slug': game.slug,
                     'game': {
                         'title': game.title,
@@ -340,7 +341,7 @@ def delete_game(request, slug):
     game = get_object_or_404(Game, slug=slug)
     if request.method == 'POST':
         game.delete()
-        messages.error(request, "Game deleted")
+        messages.error(request, _("Game deleted"))
 
         return redirect('all_games')
     return render(request, 'boardgames/game_detail.html', {'game': game})
@@ -381,7 +382,7 @@ def add_player(request):
         form = PlayerForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Player added successfully")
+            messages.success(request, _("Player added successfully"))
             return JsonResponse({'success': True})
     
         else:
@@ -410,7 +411,7 @@ def add_category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Category added successfully")
+            messages.success(request, _("Category added successfully"))
             return redirect(reverse('settings'))
     return redirect(reverse('settings'))
 
@@ -420,7 +421,7 @@ def edit_category(request, category_id):
         category.name = request.POST.get('name')
         category.description = request.POST.get('description')
         category.save()
-        messages.success(request, "Category updated successfully")
+        messages.success(request, _("Category updated successfully"))
         return redirect('settings')
     return render(request, 'boardgames/settings.html', {'categories': Category.objects.all()})
 
@@ -428,7 +429,7 @@ def delete_category(request):
     if request.method == 'POST':
         category = get_object_or_404(Category, id=request.POST.get('category_id'))
         category.delete()
-        messages.error(request, "Category deleted")
+        messages.error(request, _("Category deleted"))
         return redirect(reverse('settings'))
     return redirect(reverse('settings'))
 
@@ -437,7 +438,7 @@ def add_mechanic(request):
         form = MechanicForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Mechanic added successfully")
+            messages.success(request, _("Mechanic added successfully"))
             return redirect(reverse('settings'))
     return redirect(reverse('settings'))
 
@@ -447,7 +448,7 @@ def edit_mechanic(request, mechanic_id):
         mechanic.name = request.POST.get('name')
         mechanic.description = request.POST.get('description')
         mechanic.save()
-        messages.success(request, "Mechanic updated successfully")
+        messages.success(request, _("Mechanic updated successfully"))
         return redirect('settings')
     return render(request, 'boardgames/settings.html', {'mechanics': Mechanic.objects.all()})
 
@@ -455,7 +456,7 @@ def delete_mechanic(request):
     if request.method == 'POST':
         mechanic = get_object_or_404(Mechanic, id=request.POST.get('mechanic_id'))
         mechanic.delete()
-        messages.error(request, "Mechanic deleted")
+        messages.error(request, _("Mechanic deleted"))
         return redirect(reverse('settings'))
     return redirect(reverse('settings'))
 

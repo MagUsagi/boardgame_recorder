@@ -4,9 +4,13 @@
 {% load crispy_forms_tags %}
 
 {% load static %}
+{% load i18n %}
 
 {% block content %}
-    <h1>Players</h1>
+    <h1>{% translate 'Players' %}</h1>
+
+    <br>
+
     <div class="accordion" id="playerAccordion">
         {% for stat in player_stats %}
             <div class="accordion-item">
@@ -17,16 +21,23 @@
                 </h2>
                 <div id="collapse{{ stat.player.id }}" class="accordion-collapse collapse" data-bs-parent="#playerAccordion">
                     <div class="accordion-body">
-                        <p><strong>Total Games Played:</strong> {{ stat.total_games }}</p>
-                        <p><strong>Win Rate:</strong> {{ stat.win_rate }}%</p>
-                        <p><strong>Total Play Time:</strong> {{ stat.total_hours }} hours</p>
+                        <p><strong>{% translate 'Total Games Played' %}:</strong> {{ stat.total_games }}</p>
+                        <p><strong>{% translate 'Win Rate' %}:</strong> {{ stat.win_rate }}%</p>
+                        <p><strong>{% translate 'Total Play Time' %}:</strong> {{ stat.total_hours }} {% translate 'hours' %}</p>
                         
-                        <h5>Favorite Games (Top 3):</h5>
+                        <h5>{% translate 'Favorite Games (Top 3)' %}:</h5>
                         <ul>
                             {% for game in stat.favorite_games %}
-                                <li>{{ game.game__title }} ({{ game.game_count }} plays)</li>
+                                <li>{{ game.game__title }} (
+                                    {% blocktrans count counter=game.game_count %}
+                                        {{ counter }} play
+                                    {% plural %}
+                                        {{ counter }} plays
+                                    {% endblocktrans %}
+                                )
+                                </li>
                             {% empty %}
-                                <li>No games played yet.</li>
+                                <li>{% translate 'No games played yet.' %}</li>
                             {% endfor %}
                         </ul>
                     </div>

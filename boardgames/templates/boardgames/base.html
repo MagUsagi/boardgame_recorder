@@ -2,6 +2,8 @@
 
 {% load crispy_forms_tags %}
 
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,21 +46,43 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="btn btn-alert navbar-btn text-white" href="{% url 'dashboard' %}">
-                            <i class="fa-solid fa-house-chimney"></i>&nbsp;Home
+                            <i class="fa-solid fa-house-chimney"></i>&nbsp;{% translate 'Home' %} 
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-alert navbar-btn text-white" href="{% url 'all_games' %}">
-                            <i class="fa-solid fa-dice"></i>&nbsp;All Games
+                            <i class="fa-solid fa-dice"></i>&nbsp;{% translate 'All Games' %}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-alert navbar-btn text-white" href="{% url 'players' %}">
-                            <i class="fa-solid fa-people-group"></i>&nbsp;Players</a>
+                            <i class="fa-solid fa-people-group"></i>&nbsp;{% translate 'Players' %}
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-alert navbar-btn text-white" href="{% url 'settings' %}">
-                            <i class="fa-solid fa-gear"></i>&nbsp;Settings</a>
+                            <i class="fa-solid fa-gear"></i>&nbsp;{% translate 'Settings' %}
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-alert dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-earth-americas">&nbsp;</i>{% translate 'Language' %}
+                        </a>
+                        <div class="dropdown-menu">
+                            <form action="{% url 'set_language' %}" method="post">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="{{ request.path }}" />
+                                <button type="submit" name="language" value="en" class="dropdown-item {% if LANGUAGE_CODE == 'en' %}active{% endif %}">
+                                    English
+                                </button>
+                                <button type="submit" name="language" value="ja" class="dropdown-item {% if LANGUAGE_CODE == 'ja' %}active{% endif %}">
+                                    日本語
+                                </button>
+                                <button type="submit" name="language" value="de" class="dropdown-item {% if LANGUAGE_CODE == 'de' %}active{% endif %}">
+                                    Deutsch
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 </ul>
             </div>

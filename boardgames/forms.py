@@ -2,6 +2,7 @@ from django import forms
 from django.forms import inlineformset_factory
 from .models import Game, Category, Mechanic, History, Result, Expansion, Player
 import datetime
+from django.utils.translation import gettext as _
 
 
 class GameForm(forms.ModelForm):
@@ -18,22 +19,22 @@ class GameForm(forms.ModelForm):
     min_players = forms.IntegerField(
         min_value=1,
         max_value=99,
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Min', 'style': 'width: 70px;'})
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': _('Min'), 'style': 'width: 70px;'})
     )
     max_players = forms.IntegerField(
         min_value=1,
         max_value=99,
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Max', 'style': 'width: 70px;'})
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': _('Max'), 'style': 'width: 70px;'})
     )
     min_duration = forms.IntegerField(
         min_value=1,
         max_value=999,
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Min', 'style': 'width: 70px;'})
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': _('Min'), 'style': 'width: 70px;'})
     )
     max_duration = forms.IntegerField(
         min_value=1,
         max_value=999,
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Max', 'style': 'width: 70px;'})
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': _('Max'), 'style': 'width: 70px;'})
     )
     summary = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3}), required=False)
 
@@ -49,10 +50,10 @@ class GameForm(forms.ModelForm):
         max_duration = cleaned_data.get('max_duration')
 
         if min_players and max_players and min_players > max_players:
-            self.add_error('max_players', 'Max players must be greater than or equal to Min players.')
+            self.add_error('max_players', _('Max players must be greater than or equal to Min players.'))
         
         if min_duration and max_duration and min_duration > max_duration:
-            self.add_error('max_duration', 'Max duration must be greater than or equal to Min duration.')
+            self.add_error('max_duration', _('Max duration must be greater than or equal to Min duration.'))
 
         return cleaned_data
     
@@ -70,7 +71,7 @@ class HistoryForm(forms.ModelForm):
     duration = forms.IntegerField(
         min_value=1,
         max_value=999,
-        error_messages={'max_value': 'Duration must be 3 digits or less.'}
+        error_messages={'max_value': _('Duration must be 3 digits or less.')}
     )
     game = forms.ModelChoiceField(
         queryset=Game.objects.all(),
@@ -146,31 +147,31 @@ class GameSearchForm(forms.Form):
         label='Search',
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control',
-                                      'placeholder': 'Title or Description'})
+                                      'placeholder': _('Title or Description')})
     )
 
     search_category = forms.ModelMultipleChoiceField(
-        label='Category',
+        label=_('Category'),
         required=False,
         queryset=Category.objects.order_by('name'),
         widget=forms.SelectMultiple(attrs={'class': 'form-control'})
     )
 
     search_mechanic = forms.ModelMultipleChoiceField(
-        label='Mechanic',
+        label=_('Mechanic'),
         required=False,
         queryset=Mechanic.objects.order_by('name'),
         widget=forms.SelectMultiple(attrs={'class': 'form-control'})
     )
 
     players = forms.IntegerField(
-        label='Players',
+        label=_('Players'),
         required=False,
         widget=forms.NumberInput(attrs={'class': 'form-control', 'min': 1})
     )
 
     duration = forms.IntegerField(
-        label='Duration',
+        label=_('Duration'),
         required=False,
         widget=forms.NumberInput(attrs={'class': 'form-control', 'min': 1})
     )

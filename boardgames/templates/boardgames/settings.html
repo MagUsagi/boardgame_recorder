@@ -5,13 +5,15 @@
 
 {% load static %}
 
+{% load i18n %}
+
 {% block content %}
-<h1>Settings</h1>
+<h1>{% translate 'Settings' %}</h1>
 
 <!-- Categories Section -->
 <div class="mb-5">
-    <h2>Categories</h2>
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add New Category</button>
+    <h2>{% translate 'Categories' %}</h2>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCategoryModal">{% translate 'Add New Category' %}</button>
     
     <div class="accordion" id="categoryAccordion">
         {% for category in categories %}
@@ -23,26 +25,26 @@
                 </h2>
                 <div id="collapseCategory{{ category.id }}" class="accordion-collapse collapse" data-bs-parent="#categoryAccordion">
                     <div class="accordion-body">
-                        <p><strong>Description:</strong><br>
+                        <p><strong>{% translate 'Description' %}:</strong><br>
                              {{ category.description }}
                         </p>
                         <div class="d-flex justify-content-end gap-2 mt-3">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{ category.id }}">Edit</button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal{{ category.id }}">Delete</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{ category.id }}">{% translate 'Edit' %}</button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal{{ category.id }}">{% translate 'Delete' %}</button>
                         </div>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <p>No categories available.</p>
+            <p>{% translate 'No categories available.' %}</p>
         {% endfor %}
     </div>
 </div>
 
 <!-- Mechanics Section -->
 <div>
-    <h2>Mechanics</h2>
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addMechanicModal">Add New Mechanic</button>
+    <h2>{% translate 'Mechanics' %}</h2>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addMechanicModal">{% translate 'Add New Mechanic' %}</button>
     
     <div class="accordion" id="mechanicAccordion">
         {% for mechanic in mechanics %}
@@ -54,18 +56,18 @@
                 </h2>
                 <div id="collapseMechanic{{ mechanic.id }}" class="accordion-collapse collapse" data-bs-parent="#mechanicAccordion">
                     <div class="accordion-body">
-                        <p><strong>Description:</strong><br>
+                        <p><strong>{% translate 'Description' %}:</strong><br>
                             {{ mechanic.description }}
                         </p>
                         <div class="d-flex justify-content-end gap-2 mt-3">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMechanicModal{{ mechanic.id }}">Edit</button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMechanicModal{{ mechanic.id }}">Delete</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMechanicModal{{ mechanic.id }}">{% translate 'Edit' %}</button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMechanicModal{{ mechanic.id }}">{% translate 'Delete' %}</button>
                         </div>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <p>No mechanics available.</p>
+            <p>{% translate 'No mechanics available.' %}</p>
         {% endfor %}
     </div>
 </div>

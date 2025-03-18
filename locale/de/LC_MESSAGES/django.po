@@ -1,0 +1,682 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-18 23:39+0100\n"
+"PO-Revision-Date: 2025-03-18 23:05+0100\n"
+"Last-Translator: Sascha Klauenbösch <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\boardgames\forms.py:22 .\boardgames\forms.py:32
+#: .\boardgames\templates\boardgames\game_detail.html:142
+msgid "Min"
+msgstr "Min"
+
+#: .\boardgames\forms.py:27 .\boardgames\forms.py:37
+msgid "Max"
+msgstr "Max"
+
+#: .\boardgames\forms.py:53
+msgid "Max players must be greater than or equal to Min players."
+msgstr "Maximum Anzahl Spieler muss grösser oder gleich sein wie Minimum."
+
+#: .\boardgames\forms.py:56
+msgid "Max duration must be greater than or equal to Min duration."
+msgstr "Maximum Spieldauer muss grösser order gleich sein wie Minimum."
+
+#: .\boardgames\forms.py:74
+msgid "Duration must be 3 digits or less."
+msgstr "Spieldauer muss drei oder weniger Ziffern haben."
+
+#: .\boardgames\forms.py:150
+msgid "Title or Description"
+msgstr "Titel oder Beschreibung"
+
+#: .\boardgames\forms.py:154
+#: .\boardgames\templates\boardgames\all_games.html:31
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:72
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:78
+msgid "Category"
+msgstr "Kategorie"
+
+#: .\boardgames\forms.py:161
+#: .\boardgames\templates\boardgames\all_games.html:53
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:86
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:92
+msgid "Mechanic"
+msgstr "Spielmechanik"
+
+#: .\boardgames\forms.py:168
+#: .\boardgames\templates\boardgames\all_games.html:75
+#: .\boardgames\templates\boardgames\all_games.html:162
+#: .\boardgames\templates\boardgames\base.html:59
+#: .\boardgames\templates\boardgames\dashboard.html:26
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:27
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:28
+#: .\boardgames\templates\boardgames\players.html:10
+msgid "Players"
+msgstr "Spieler"
+
+#: .\boardgames\forms.py:174
+#: .\boardgames\templates\boardgames\all_games.html:96
+#: .\boardgames\templates\boardgames\all_games.html:163
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:46
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:49
+msgid "Duration"
+msgstr "Dauer"
+
+#: .\boardgames\templates\boardgames\all_games.html:13
+#: .\boardgames\templates\boardgames\base.html:54
+msgid "All Games"
+msgstr "Alle Spiele"
+
+#: .\boardgames\templates\boardgames\all_games.html:23
+msgid "Search"
+msgstr "Suchen"
+
+#: .\boardgames\templates\boardgames\all_games.html:108
+#: .\boardgames\templates\boardgames\all_games.html:163
+#: .\boardgames\templates\boardgames\game_detail.html:39
+msgid "min"
+msgstr ""
+
+#: .\boardgames\templates\boardgames\all_games.html:116
+#: .\boardgames\templates\boardgames\all_games.html:118
+msgid "Reset"
+msgstr "Filter löschen"
+
+#: .\boardgames\templates\boardgames\all_games.html:128
+#, python-format
+msgid ""
+"\n"
+"                %(counter)s game found\n"
+"            "
+msgid_plural ""
+"\n"
+"                %(counter)s games found\n"
+"            "
+msgstr[0] ""
+"\n"
+"                %(counter)s Spiel gefunden\n"
+"            "
+msgstr[1] ""
+"\n"
+"                %(counter)s Spiele gefunden\n"
+"            "
+
+#: .\boardgames\templates\boardgames\all_games.html:152
+msgid "No image"
+msgstr "Kein Bild"
+
+#: .\boardgames\templates\boardgames\all_games.html:174
+#: .\boardgames\templates\boardgames\dashboard.html:85
+msgid "No games available."
+msgstr "Keine Spiele vorhanden."
+
+#: .\boardgames\templates\boardgames\base.html:49
+msgid "Home"
+msgstr "Startseite"
+
+#: .\boardgames\templates\boardgames\base.html:64
+#: .\boardgames\templates\boardgames\settings.html:11
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: .\boardgames\templates\boardgames\base.html:69
+msgid "Language"
+msgstr "Sprache"
+
+#: .\boardgames\templates\boardgames\dashboard.html:10
+msgid "Overview"
+msgstr "Übersicht"
+
+#: .\boardgames\templates\boardgames\dashboard.html:16
+msgid "Games"
+msgstr "Spiele"
+
+#: .\boardgames\templates\boardgames\dashboard.html:36
+msgid "Plays"
+msgstr "Partien"
+
+#: .\boardgames\templates\boardgames\dashboard.html:46
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:50
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:27
+msgid "Play Time"
+msgstr "Spielzeit"
+
+#: .\boardgames\templates\boardgames\dashboard.html:58
+msgid "New Record"
+msgstr "Neuer Eintrag"
+
+#: .\boardgames\templates\boardgames\dashboard.html:61
+msgid "New Game"
+msgstr "Neues Spiel"
+
+#: .\boardgames\templates\boardgames\dashboard.html:64
+msgid "New Player"
+msgstr "Neuer Spieler"
+
+#: .\boardgames\templates\boardgames\dashboard.html:70
+msgid "Recommend Game"
+msgstr "Zufälliges Spiel"
+
+#: .\boardgames\templates\boardgames\dashboard.html:88
+msgid "Let's Play..."
+msgstr "Zufallsgenerator"
+
+#: .\boardgames\templates\boardgames\dashboard.html:97
+msgid "Recently Played"
+msgstr "Kürzlich gespielt"
+
+#: .\boardgames\templates\boardgames\dashboard.html:109
+#: .\boardgames\templates\boardgames\dashboard.html:173
+msgid "Last played"
+msgstr "Zuletzt gespielt"
+
+#: .\boardgames\templates\boardgames\dashboard.html:115
+msgid "No recently played games."
+msgstr "Keine kürzlich gespielte Spiele vorhanden."
+
+#: .\boardgames\templates\boardgames\dashboard.html:125
+msgid "Most Played"
+msgstr "Am meisten gespielt"
+
+#: .\boardgames\templates\boardgames\dashboard.html:138
+msgid "Played"
+msgstr "Partien"
+
+#: .\boardgames\templates\boardgames\dashboard.html:139
+#, python-format
+msgid ""
+"\n"
+"                                            %(counter)s time\n"
+"                                        "
+msgid_plural ""
+"\n"
+"                                            %(counter)s times\n"
+"                                        "
+msgstr[0] ""
+"\n"
+"                                            %(counter)s mal\n"
+"                                        "
+msgstr[1] ""
+"\n"
+"                                            %(counter)s mal\n"
+"                                        "
+
+#: .\boardgames\templates\boardgames\dashboard.html:150
+msgid "No most played games."
+msgstr "Keine am meisten gespielte Spele vorhanden."
+
+#: .\boardgames\templates\boardgames\dashboard.html:161
+msgid "Recently Not Played"
+msgstr "Schon lange nicht mehr gespielt"
+
+#: .\boardgames\templates\boardgames\dashboard.html:179
+msgid "No recently not played games."
+msgstr "Keine Spiele vorhanden."
+
+#: .\boardgames\templates\boardgames\dashboard.html:188
+msgid "Never Played"
+msgstr "Noch nie gespielt"
+
+#: .\boardgames\templates\boardgames\dashboard.html:204
+msgid "No never played games."
+msgstr "Keine Spiele vorhanden."
+
+#: .\boardgames\templates\boardgames\game_detail.html:28
+msgid "No image Available"
+msgstr "Kein Bild verfügbar."
+
+#: .\boardgames\templates\boardgames\game_detail.html:38
+msgid "Players:"
+msgstr "Anzahl Spieler:"
+
+#: .\boardgames\templates\boardgames\game_detail.html:38
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:40
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:43
+msgid "people"
+msgstr "Spieler"
+
+#: .\boardgames\templates\boardgames\game_detail.html:39
+msgid "Game Time:"
+msgstr "Spielzeit"
+
+#: .\boardgames\templates\boardgames\game_detail.html:42
+#: .\boardgames\templates\boardgames\settings.html:15
+msgid "Categories"
+msgstr "Kategorien"
+
+#: .\boardgames\templates\boardgames\game_detail.html:57
+msgid "No categories"
+msgstr "Keine Kategorien vorhanden."
+
+#: .\boardgames\templates\boardgames\game_detail.html:64
+#: .\boardgames\templates\boardgames\settings.html:46
+msgid "Mechanics"
+msgstr "Spielmechaniken"
+
+#: .\boardgames\templates\boardgames\game_detail.html:79
+msgid "No mechanics"
+msgstr "Keine Spielmechaniken vorhanden."
+
+#: .\boardgames\templates\boardgames\game_detail.html:86
+msgid "Expansions:"
+msgstr "Erweiterungen"
+
+#: .\boardgames\templates\boardgames\game_detail.html:92
+msgid "No expansions"
+msgstr "Keine Erweiterungen vorhanden."
+
+#: .\boardgames\templates\boardgames\game_detail.html:103
+msgid "Description:"
+msgstr "Beschreibung"
+
+#: .\boardgames\templates\boardgames\game_detail.html:107
+msgid "No Description"
+msgstr "Keine Beschreibung vorhanden."
+
+#: .\boardgames\templates\boardgames\game_detail.html:114
+#: .\boardgames\templates\boardgames\game_detail.html:200
+#: .\boardgames\templates\boardgames\settings.html:32
+#: .\boardgames\templates\boardgames\settings.html:63
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: .\boardgames\templates\boardgames\game_detail.html:115
+#: .\boardgames\templates\boardgames\modals\delete_game_modal.html:8
+msgid "Delete Game"
+msgstr "Spiel löschen"
+
+#: .\boardgames\templates\boardgames\game_detail.html:125
+msgid "Game Records"
+msgstr "Spielverlauf"
+
+#: .\boardgames\templates\boardgames\game_detail.html:130
+msgid "Add New Record"
+msgstr "Neuer Eintrag"
+
+#: .\boardgames\templates\boardgames\game_detail.html:140
+msgid "Played on"
+msgstr "Gespielt am"
+
+#: .\boardgames\templates\boardgames\game_detail.html:150
+msgid "Expansions Used:"
+msgstr "Erweiterungen benutzt:"
+
+#: .\boardgames\templates\boardgames\game_detail.html:157
+msgid "No Expansions Used"
+msgstr "Keine Erweiterungen benutzt."
+
+#: .\boardgames\templates\boardgames\game_detail.html:164
+msgid "Name"
+msgstr "Spieler"
+
+#: .\boardgames\templates\boardgames\game_detail.html:165
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:90
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:140
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:73
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:123
+msgid "Score"
+msgstr "Punkte"
+
+#: .\boardgames\templates\boardgames\game_detail.html:166
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:97
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:146
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:80
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:128
+msgid "Winner"
+msgstr "Gewinner"
+
+#: .\boardgames\templates\boardgames\game_detail.html:203
+#: .\boardgames\templates\boardgames\modals\category_modal.html:68
+#: .\boardgames\templates\boardgames\modals\delete_game_modal.html:18
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:69
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:20
+#: .\boardgames\templates\boardgames\settings.html:33
+#: .\boardgames\templates\boardgames\settings.html:64
+msgid "Delete"
+msgstr "Löschen"
+
+#: .\boardgames\templates\boardgames\game_detail.html:247
+msgid "No Game Records Found"
+msgstr "Keine Partien gefunden."
+
+#: .\boardgames\templates\boardgames\game_detail.html:257
+msgid "Back to All Games"
+msgstr "Zurück zu Alle Spiele"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:10
+msgid "Add a New Game"
+msgstr "Neues Spiel hinzufügen"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:59
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:64
+msgid "minutes"
+msgstr "Minuten"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:100
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:106
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:66
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:40
+msgid "Expansions"
+msgstr "Erweiterungen"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:104
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:122
+msgid "Add Expansion"
+msgstr "Erweiterung hinzufügen"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:108
+#: .\boardgames\templates\boardgames\modals\add_player_modal.html:25
+#: .\boardgames\templates\boardgames\modals\category_modal.html:67
+#: .\boardgames\templates\boardgames\modals\delete_game_modal.html:17
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:126
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:68
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:114
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:19
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:95
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:109
+#: .\boardgames\templates\boardgames\modals\add_player_modal.html:26
+msgid "Save Game"
+msgstr "Spiel Speichern"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:126
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:145
+msgid "Expansion name"
+msgstr "Erweiterung"
+
+#: .\boardgames\templates\boardgames\modals\add_player_modal.html:10
+msgid "Add a New Player"
+msgstr "Neuen Spieler hinzufügen"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:9
+msgid "Add Category"
+msgstr "Kategorie hinzufügen"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:18
+#: .\boardgames\templates\boardgames\modals\category_modal.html:44
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:18
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:45
+msgid "Close"
+msgstr "Schliessen"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:19
+msgid "Save Category"
+msgstr "Kategorie speichern"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:31
+msgid "Edit Category"
+msgstr "Kategorie bearbeiten"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:37
+msgid "Category Name"
+msgstr "Kategorie"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:40
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:41
+#: .\boardgames\templates\boardgames\settings.html:28
+#: .\boardgames\templates\boardgames\settings.html:59
+msgid "Description"
+msgstr "Beschreibung"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:45
+msgid "Update Category"
+msgstr "Kategorie aktualisieren"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:57
+msgid "Delete Category"
+msgstr "Kategorie löschen"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:64
+#, python-format
+msgid "Are you sure you want to delete <strong>%(category.name)s</strong>?"
+msgstr "Soll <strong>%(category.name)s</strong> wirklich gelöscht werden?"
+
+#: .\boardgames\templates\boardgames\modals\delete_game_modal.html:14
+#, python-format
+msgid "Are you sure you want to delete <strong>%(game.title)s</strong>?"
+msgstr "Soll <strong>%(game.title)s</strong> wirklich gelöscht werden?"
+
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:11
+msgid "Edit Game"
+msgstr "Spiel Bearbeiten"
+
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:127
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:96
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:9
+msgid "Add Mechanic"
+msgstr "Spielmechanik hinzufügen"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:19
+msgid "Save Mechanic"
+msgstr "Spielmechanik speichern"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:31
+msgid "Edit Mechanic"
+msgstr "Spielmechanik beabeiten"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:38
+msgid "Mechanic Name"
+msgstr "Spielmechanik"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:46
+msgid "Update Mechanic"
+msgstr "Spielmechanik aktualisieren"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:58
+msgid "Delete Mechanic"
+msgstr "Spielmechanik löschen"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:65
+#, python-format
+msgid "Are you sure you want to delete <strong>%(mechanic.name)s</strong>?"
+msgstr "Soll <strong>%(mechanic.name)s</strong> wirklich gelöscht werden?"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:9
+msgid "Add Play Record"
+msgstr "Neuer Eintrag"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:26
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:31
+msgid "Game Title"
+msgstr "Spiel"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:33
+msgid "Select Game"
+msgstr "Spiel wählen"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:44
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:21
+msgid "Play Date"
+msgstr "Spieldatum"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:57
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:35
+msgid "Duration (Min)"
+msgstr "Dauer (Min)"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:74
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:54
+msgid "Results"
+msgstr "Resultate"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:79
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:130
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:60
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:114
+msgid "Player"
+msgstr "Spieler"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:81
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:132
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:62
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:116
+msgid "Select Player"
+msgstr "Spieler auswählen"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:109
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:92
+msgid "Add Result"
+msgstr "Resultat hinzufügen"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:115
+msgid "Save Record"
+msgstr "Eintrag speichern"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:222
+msgid "No expansions available for this game."
+msgstr "Keine Erweiterungen für dieses Spiel verfügbar."
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:226
+msgid "No game selected."
+msgstr "Kein spiel ausgewählt."
+
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:9
+msgid "Delete Play Record"
+msgstr "Eintag löschen"
+
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:15
+msgid "Are you sure you want to delete?"
+msgstr "Soll der Eintrag wirklich gelöscht werden?"
+
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:16
+#, python-format
+msgid ""
+"Played on <strong>%(history.play_date)s</strong>&nbsp;"
+"(%(history.duration)smin)"
+msgstr ""
+"Gespielt am <strong>%(history.play_date)s</strong>&nbsp;"
+"(%(history.duration)smin)"
+
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:10
+msgid "Edit Record"
+msgstr "Eintrag bearbeiten"
+
+#: .\boardgames\templates\boardgames\players.html:24
+msgid "Total Games Played"
+msgstr "Anzahl Partien gespielt"
+
+#: .\boardgames\templates\boardgames\players.html:25
+msgid "Win Rate"
+msgstr "Gewinnrate"
+
+#: .\boardgames\templates\boardgames\players.html:26
+msgid "Total Play Time"
+msgstr "Gesamte Spielzeit"
+
+#: .\boardgames\templates\boardgames\players.html:26
+msgid "hours"
+msgstr "Stunden"
+
+#: .\boardgames\templates\boardgames\players.html:28
+msgid "Favorite Games (Top 3)"
+msgstr "Lieblingsspiele (Top 3)"
+
+#: .\boardgames\templates\boardgames\players.html:32
+#, python-format
+msgid ""
+"\n"
+"                                        %(counter)s play\n"
+"                                    "
+msgid_plural ""
+"\n"
+"                                        %(counter)s plays\n"
+"                                    "
+msgstr[0] ""
+"\n"
+"                                        %(counter)s Partie\n"
+"                                    "
+msgstr[1] ""
+"\n"
+"                                        %(counter)s Partien\n"
+"                                    "
+
+#: .\boardgames\templates\boardgames\players.html:40
+msgid "No games played yet."
+msgstr "Nich keine Partien gespielt."
+
+#: .\boardgames\templates\boardgames\settings.html:16
+msgid "Add New Category"
+msgstr "Neue Kategorie hinzufügen"
+
+#: .\boardgames\templates\boardgames\settings.html:39
+msgid "No categories available."
+msgstr "Keine Kategorien vorhanden."
+
+#: .\boardgames\templates\boardgames\settings.html:47
+msgid "Add New Mechanic"
+msgstr "Spielmechanik hinzufügen"
+
+#: .\boardgames\templates\boardgames\settings.html:70
+msgid "No mechanics available."
+msgstr "Keine Spielmechanik vorhanden."
+
+#: .\boardgames\views.py:118
+msgid "Play record added successfully!"
+msgstr "Eintrag erfolgreich hinzugefügt!"
+
+#: .\boardgames\views.py:251
+msgid "Play record updated successfully!"
+msgstr "Eintrag erfolgreich aktualisiert!"
+
+#: .\boardgames\views.py:276
+msgid "Game added successfully"
+msgstr "Spiel erfolgreich hinzugefügt!"
+
+#: .\boardgames\views.py:302
+msgid "Game updated successfully"
+msgstr "Spiel erfolgreich aktualisiert!"
+
+#: .\boardgames\views.py:313
+msgid "Game updated successfully!"
+msgstr "Spiel erfolgreich aktualisiert!"
+
+#: .\boardgames\views.py:344
+msgid "Game deleted"
+msgstr "Spiel gelöscht"
+
+#: .\boardgames\views.py:385
+msgid "Player added successfully"
+msgstr "Spieler erfolgreich hinzugefügt!"
+
+#: .\boardgames\views.py:414
+msgid "Category added successfully"
+msgstr "Kategorie erfolgreich hinzugefügt!"
+
+#: .\boardgames\views.py:424
+msgid "Category updated successfully"
+msgstr "Kategorie erfolgreich aktualisiert!"
+
+#: .\boardgames\views.py:432
+msgid "Category deleted"
+msgstr "Kategorie gelöscht"
+
+#: .\boardgames\views.py:441
+msgid "Mechanic added successfully"
+msgstr "Spielmechanik erfolgreich hinzugefügt!"
+
+#: .\boardgames\views.py:451
+msgid "Mechanic updated successfully"
+msgstr "Spielmechanik erfolgreich aktualisiert!"
+
+#: .\boardgames\views.py:459
+msgid "Mechanic deleted"
+msgstr "Spielmechanik gelöscht"

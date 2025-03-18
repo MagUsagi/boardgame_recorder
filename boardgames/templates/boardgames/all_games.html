@@ -5,10 +5,12 @@
 
 {% load static %}
 
+{% load i18n %}
+
 {% block content %}
 
 <div class="container">
-    <h1 class="border-bottom text-center">My Board Games</h1>
+    <h1 class="border-bottom text-center">{% translate 'All Games' %}</h1>
 
     <br>
 
@@ -18,7 +20,7 @@
            <!-- Keyword Search -->
             {{ search_form.key_word }}
             <!-- Search button -->
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">{% translate 'Search' %}</button>
         </div>
 
         <div class="d-flex justify-content-md-start justify-content-center">
@@ -26,7 +28,7 @@
             <!-- Category Dropdown -->
             <!-- PC screen -->
             <button class="btn btn-outline-secondary dropdown-toggle d-none d-md-block me-2" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                Category
+                {% translate 'Category' %}
             </button>
             <!-- Mobile screen with Icon -->
             <button class="btn btn-outline-secondary dropdown-toggle d-md-none me-2" type="button" id="categoryDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -48,7 +50,7 @@
             <!-- Mechanic Dropdown -->
             <!-- PC screen -->
             <button class="btn btn-outline-secondary dropdown-toggle d-none d-md-block me-2" type="button" id="mechanicDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                Mechanic
+                {% translate 'Mechanic' %}
             </button>
             <!-- Mobile screen with Icon -->
             <button class="btn btn-outline-secondary dropdown-toggle d-md-none me-2" type="button" id="mechanicDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -70,7 +72,7 @@
             <!-- Players -->
             <!-- PC screen -->
             <button class="btn btn-outline-secondary dropdown-toggle d-none d-md-block me-2" type="button" id="playersDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                Players
+                {% translate 'Players' %}
             </button>
             <!-- Mobile screen witn Icon-->
             <button class="btn btn-outline-secondary dropdown-toggle d-md-none me-2" type="button" id="playersDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -91,7 +93,7 @@
             <!-- Duration -->
             <!-- PC screen -->
             <button class="btn btn-outline-secondary dropdown-toggle d-none d-md-block me-2" type="button" id="durationDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                Duration
+                {% translate 'Duration' %}
             </button>
             <!-- Mobile screen witn Icon-->
             <button class="btn btn-outline-secondary dropdown-toggle d-md-none me-2" type="button" id="durationDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -103,7 +105,7 @@
                     <label class="d-flex align-items-center">
                         <input type="checkbox" name="search_duration" value="{{ time }}" class="me-2 form-check-input"
                         {% if time|stringformat:"s" in selected_durations %}checked{% endif %}>
-                        <span>{% if time == 5 %}<{% endif %}{{ time }}{% if time == 90 %}+{% endif %} min</span>
+                        <span>{% if time == 5 %}<{% endif %}{{ time }}{% if time == 90 %}+{% endif %} {% translate 'min' %}</span>
                     </label>
                 </li>
                 {% endfor %}
@@ -111,9 +113,9 @@
 
             <!-- Reset button -->
             <!-- PC screen -->
-            <a href="{% url 'all_games' %}" class="btn btn-light d-none d-md-block ms-4"><i class="fa-solid fa-xmark"></i> Reset</a>
+            <a href="{% url 'all_games' %}" class="btn btn-light d-none d-md-block ms-4"><i class="fa-solid fa-xmark"></i> {% translate 'Reset' %}</a>
             <!-- Mobile screen witn Icon-->
-            <a href="{% url 'all_games' %}" class="btn btn-light d-md-none"><i class="fa-solid fa-xmark"></i> Reset</a>
+            <a href="{% url 'all_games' %}" class="btn btn-light d-md-none"><i class="fa-solid fa-xmark"></i> {% translate 'Reset' %}</a>
 
         </div>
     </form>
@@ -122,7 +124,13 @@
 
     <!-- Search Result -->
     {% if games %}
-        <p class="font-weight-bold h4">{{ games.count }} games found</p>
+        <p class="font-weight-bold h4">
+            {% blocktrans count counter=games.count %}
+                {{ counter }} game found
+            {% plural %}
+                {{ counter }} games found
+            {% endblocktrans %}
+        </p>
     {% endif%}
 
     <br>
@@ -141,7 +149,7 @@
                 {% else %}
                     <a href="{% url 'game_detail' game.slug %}" class="ratio ratio-1x1">
                         <div class="card-img-top d-flex justify-content-center align-items-center bg-light">
-                            No image
+                            {% translate 'No image' %}
                         </div>
                     </a>
                 {% endif %}
@@ -151,8 +159,8 @@
                         <a href="{% url 'game_detail' game.slug %}" class="text-decoration-none">{{ game.title }}</a>
                     </h5>
                     <div class="small-screen-hide">
-                        <p class="card-text">Players: {{ game.min_players }} - {{ game.max_players }}</p>
-                        <p class="card-text">Duration: {{ game.min_duration }} - {{ game.max_duration }} min</p>
+                        <p class="card-text">{% translate 'Players' %}: {{ game.min_players }} - {{ game.max_players }}</p>
+                        <p class="card-text">{% translate 'Duration' %}: {{ game.min_duration }} - {{ game.max_duration }} {% translate 'min' %}</p>
                     </div>
                     <div class="mt-auto">
                         {% for category in game.category.all %}
@@ -163,7 +171,7 @@
             </div>
         </div>
         {% empty %}
-        <p>No games available.</p>
+        <p>{% translate 'No games available.' %}</p>
         {% endfor %}
          
     </div>

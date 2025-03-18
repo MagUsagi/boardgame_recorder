@@ -1,0 +1,745 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-18 22:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\boardgames\forms.py:22 .\boardgames\forms.py:32
+#: .\boardgames\templates\boardgames\game_detail.html:142
+msgid "Min"
+msgstr "分"
+
+#: .\boardgames\forms.py:27 .\boardgames\forms.py:37
+msgid "Max"
+msgstr "最大"
+
+#: .\boardgames\forms.py:53
+msgid "Max players must be greater than or equal to Min players."
+msgstr "最多プレイヤーは最少プライヤーより大きい数字を入力してください。"
+
+#: .\boardgames\forms.py:56
+msgid "Max duration must be greater than or equal to Min duration."
+msgstr "最大プレイ時間は最少プレイ時間より大きい数字を入力してください。"
+
+#: .\boardgames\forms.py:74
+msgid "Duration must be 3 digits or less."
+msgstr "プレイ時間は３桁以内で入力してください。"
+
+#: .\boardgames\forms.py:150
+#, fuzzy
+#| msgid "No Description"
+msgid "Title or Description"
+msgstr "説明はありません"
+
+#: .\boardgames\forms.py:154
+#: .\boardgames\templates\boardgames\all_games.html:31
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:72
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:78
+msgid "Category"
+msgstr "カテゴリー"
+
+#: .\boardgames\forms.py:161
+#: .\boardgames\templates\boardgames\all_games.html:53
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:86
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:92
+msgid "Mechanic"
+msgstr "メカニクス"
+
+#: .\boardgames\forms.py:168
+#: .\boardgames\templates\boardgames\all_games.html:75
+#: .\boardgames\templates\boardgames\all_games.html:162
+#: .\boardgames\templates\boardgames\base.html:59
+#: .\boardgames\templates\boardgames\dashboard.html:26
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:27
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:28
+#: .\boardgames\templates\boardgames\players.html:10
+msgid "Players"
+msgstr "プレイヤー人数"
+
+#: .\boardgames\forms.py:174
+#: .\boardgames\templates\boardgames\all_games.html:96
+#: .\boardgames\templates\boardgames\all_games.html:163
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:46
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:49
+msgid "Duration"
+msgstr "プレイ時間"
+
+#: .\boardgames\templates\boardgames\all_games.html:13
+#: .\boardgames\templates\boardgames\base.html:54
+msgid "All Games"
+msgstr "ゲーム一覧"
+
+#: .\boardgames\templates\boardgames\all_games.html:23
+msgid "Search"
+msgstr "検索"
+
+#: .\boardgames\templates\boardgames\all_games.html:108
+#: .\boardgames\templates\boardgames\all_games.html:163
+#: .\boardgames\templates\boardgames\game_detail.html:39
+msgid "min"
+msgstr "分"
+
+#: .\boardgames\templates\boardgames\all_games.html:116
+#: .\boardgames\templates\boardgames\all_games.html:118
+msgid "Reset"
+msgstr "リセット"
+
+#: .\boardgames\templates\boardgames\all_games.html:128
+#, python-format
+msgid ""
+"\n"
+"                %(counter)s game found\n"
+"            "
+msgid_plural ""
+"\n"
+"                %(counter)s games found\n"
+"            "
+msgstr[0] ""
+"\n"
+"                %(counter)s 件　見つかりました\n"
+"            "
+msgstr[1] ""
+"\n"
+"                %(counter)s 件　見つかりました\n"
+"            "
+
+#: .\boardgames\templates\boardgames\all_games.html:152
+msgid "No image"
+msgstr "イメージがありません"
+
+#: .\boardgames\templates\boardgames\all_games.html:174
+#: .\boardgames\templates\boardgames\dashboard.html:85
+msgid "No games available."
+msgstr "ゲームはありません"
+
+#: .\boardgames\templates\boardgames\base.html:49
+msgid "Home"
+msgstr "ホーム"
+
+#: .\boardgames\templates\boardgames\base.html:64
+#: .\boardgames\templates\boardgames\settings.html:11
+msgid "Settings"
+msgstr "設定"
+
+#: .\boardgames\templates\boardgames\base.html:69
+msgid "Language"
+msgstr "言語"
+
+#: .\boardgames\templates\boardgames\dashboard.html:10
+msgid "Overview"
+msgstr "概要"
+
+#: .\boardgames\templates\boardgames\dashboard.html:16
+msgid "Games"
+msgstr "ゲーム数"
+
+#: .\boardgames\templates\boardgames\dashboard.html:36
+msgid "Plays"
+msgstr "プレイした回数"
+
+#: .\boardgames\templates\boardgames\dashboard.html:46
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:50
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:27
+msgid "Play Time"
+msgstr "プレイした時間"
+
+#: .\boardgames\templates\boardgames\dashboard.html:58
+msgid "New Record"
+msgstr "新しい記録"
+
+#: .\boardgames\templates\boardgames\dashboard.html:61
+msgid "New Game"
+msgstr "新しいゲーム"
+
+#: .\boardgames\templates\boardgames\dashboard.html:64
+msgid "New Player"
+msgstr "新しいプレイヤー"
+
+#: .\boardgames\templates\boardgames\dashboard.html:70
+msgid "Recommend Game"
+msgstr "おすすめのゲーム"
+
+#: .\boardgames\templates\boardgames\dashboard.html:88
+msgid "Let's Play..."
+msgstr "次にプレイするのは・・・"
+
+#: .\boardgames\templates\boardgames\dashboard.html:97
+msgid "Recently Played"
+msgstr "最近プレイしたゲーム"
+
+#: .\boardgames\templates\boardgames\dashboard.html:109
+#: .\boardgames\templates\boardgames\dashboard.html:173
+msgid "Last played"
+msgstr "最後にプレイした日"
+
+#: .\boardgames\templates\boardgames\dashboard.html:115
+msgid "No recently played games."
+msgstr "最近プレイしたゲームはありません。"
+
+#: .\boardgames\templates\boardgames\dashboard.html:125
+msgid "Most Played"
+msgstr "最もプレイしたゲーム"
+
+#: .\boardgames\templates\boardgames\dashboard.html:138
+msgid "Played"
+msgstr "プレイした回数"
+
+#: .\boardgames\templates\boardgames\dashboard.html:139
+#, python-format
+msgid ""
+"\n"
+"                                            %(counter)s time\n"
+"                                        "
+msgid_plural ""
+"\n"
+"                                            %(counter)s times\n"
+"                                        "
+msgstr[0] ""
+"\n"
+"                                            %(counter)s 回\n"
+"                                        "
+msgstr[1] ""
+"\n"
+"                                            %(counter)s 回\n"
+"                                        "
+
+#: .\boardgames\templates\boardgames\dashboard.html:150
+msgid "No most played games."
+msgstr "該当するゲームはありません"
+
+#: .\boardgames\templates\boardgames\dashboard.html:161
+msgid "Recently Not Played"
+msgstr "しばらくプレイしていないゲーム"
+
+#: .\boardgames\templates\boardgames\dashboard.html:179
+msgid "No recently not played games."
+msgstr "該当するゲームはありません"
+
+#: .\boardgames\templates\boardgames\dashboard.html:188
+msgid "Never Played"
+msgstr "プレイしたことがないゲーム"
+
+#: .\boardgames\templates\boardgames\dashboard.html:204
+msgid "No never played games."
+msgstr "該当するゲームはありません"
+
+#: .\boardgames\templates\boardgames\game_detail.html:28
+msgid "No image Available"
+msgstr "イメージがありません"
+
+#: .\boardgames\templates\boardgames\game_detail.html:38
+msgid "Players:"
+msgstr "プレイ人数:"
+
+#: .\boardgames\templates\boardgames\game_detail.html:38
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:40
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:43
+msgid "people"
+msgstr "人"
+
+#: .\boardgames\templates\boardgames\game_detail.html:39
+msgid "Game Time:"
+msgstr "プレイ時間:"
+
+#: .\boardgames\templates\boardgames\game_detail.html:42
+#: .\boardgames\templates\boardgames\settings.html:15
+msgid "Categories"
+msgstr "カテゴリー"
+
+#: .\boardgames\templates\boardgames\game_detail.html:57
+msgid "No categories"
+msgstr "カテゴリーはありません"
+
+#: .\boardgames\templates\boardgames\game_detail.html:64
+#: .\boardgames\templates\boardgames\settings.html:46
+msgid "Mechanics"
+msgstr "メカニクス"
+
+#: .\boardgames\templates\boardgames\game_detail.html:79
+msgid "No mechanics"
+msgstr "メカニクスはありません"
+
+#: .\boardgames\templates\boardgames\game_detail.html:86
+msgid "Expansions:"
+msgstr "拡張:"
+
+#: .\boardgames\templates\boardgames\game_detail.html:92
+msgid "No expansions"
+msgstr "拡張はありません"
+
+#: .\boardgames\templates\boardgames\game_detail.html:103
+msgid "Description:"
+msgstr "説明"
+
+#: .\boardgames\templates\boardgames\game_detail.html:107
+msgid "No Description"
+msgstr "説明はありません"
+
+#: .\boardgames\templates\boardgames\game_detail.html:114
+#: .\boardgames\templates\boardgames\game_detail.html:200
+#: .\boardgames\templates\boardgames\settings.html:32
+#: .\boardgames\templates\boardgames\settings.html:63
+msgid "Edit"
+msgstr "編集"
+
+#: .\boardgames\templates\boardgames\game_detail.html:115
+#: .\boardgames\templates\boardgames\modals\delete_game_modal.html:8
+msgid "Delete Game"
+msgstr "ゲームを削除"
+
+#: .\boardgames\templates\boardgames\game_detail.html:125
+msgid "Game Records"
+msgstr "プレイ記録"
+
+#: .\boardgames\templates\boardgames\game_detail.html:130
+msgid "Add New Record"
+msgstr "新しい記録を追加"
+
+#: .\boardgames\templates\boardgames\game_detail.html:140
+msgid "Played on"
+msgstr "プレイした日:"
+
+#: .\boardgames\templates\boardgames\game_detail.html:150
+msgid "Expansions Used:"
+msgstr "使用した拡張:"
+
+#: .\boardgames\templates\boardgames\game_detail.html:157
+msgid "No Expansions Used"
+msgstr "拡張は使用していません"
+
+#: .\boardgames\templates\boardgames\game_detail.html:164
+msgid "Name"
+msgstr "プレイヤー名"
+
+#: .\boardgames\templates\boardgames\game_detail.html:165
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:90
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:140
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:73
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:123
+msgid "Score"
+msgstr "スコア"
+
+#: .\boardgames\templates\boardgames\game_detail.html:166
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:97
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:146
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:80
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:128
+msgid "Winner"
+msgstr "勝者"
+
+#: .\boardgames\templates\boardgames\game_detail.html:203
+#: .\boardgames\templates\boardgames\modals\category_modal.html:68
+#: .\boardgames\templates\boardgames\modals\delete_game_modal.html:18
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:69
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:20
+#: .\boardgames\templates\boardgames\settings.html:33
+#: .\boardgames\templates\boardgames\settings.html:64
+msgid "Delete"
+msgstr "削除"
+
+#: .\boardgames\templates\boardgames\game_detail.html:247
+msgid "No Game Records Found"
+msgstr "プレイ記録はありません"
+
+#: .\boardgames\templates\boardgames\game_detail.html:257
+msgid "Back to All Games"
+msgstr "ゲーム一覧へ戻る"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:10
+msgid "Add a New Game"
+msgstr "新しいゲームを追加"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:59
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:64
+msgid "minutes"
+msgstr "分"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:100
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:106
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:66
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:40
+msgid "Expansions"
+msgstr "拡張"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:104
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:122
+msgid "Add Expansion"
+msgstr "拡張を追加"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:108
+#: .\boardgames\templates\boardgames\modals\add_player_modal.html:25
+#: .\boardgames\templates\boardgames\modals\category_modal.html:67
+#: .\boardgames\templates\boardgames\modals\delete_game_modal.html:17
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:126
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:68
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:114
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:95
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:109
+#: .\boardgames\templates\boardgames\modals\add_player_modal.html:26
+msgid "Save Game"
+msgstr "保存"
+
+#: .\boardgames\templates\boardgames\modals\add_game_modal.html:126
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:145
+#, fuzzy
+#| msgid "Expansions"
+msgid "Expansion name"
+msgstr "拡張"
+
+#: .\boardgames\templates\boardgames\modals\add_player_modal.html:10
+msgid "Add a New Player"
+msgstr "新しいプレイヤーを追加"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:9
+#, fuzzy
+#| msgid "Category"
+msgid "Add Category"
+msgstr "カテゴリー"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:18
+#: .\boardgames\templates\boardgames\modals\category_modal.html:44
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:18
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:45
+msgid "Close"
+msgstr "閉じる"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:19
+#, fuzzy
+#| msgid "Category"
+msgid "Save Category"
+msgstr "カテゴリー"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:31
+#, fuzzy
+#| msgid "Category"
+msgid "Edit Category"
+msgstr "カテゴリー"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:37
+#, fuzzy
+#| msgid "Category"
+msgid "Category Name"
+msgstr "カテゴリー"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:40
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:41
+#: .\boardgames\templates\boardgames\settings.html:28
+#: .\boardgames\templates\boardgames\settings.html:59
+#, fuzzy
+#| msgid "Description:"
+msgid "Description"
+msgstr "説明"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:45
+#, fuzzy
+#| msgid "Category"
+msgid "Update Category"
+msgstr "カテゴリー"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:57
+#, fuzzy
+#| msgid "Category"
+msgid "Delete Category"
+msgstr "カテゴリー"
+
+#: .\boardgames\templates\boardgames\modals\category_modal.html:64
+#, python-format
+msgid "Are you sure you want to delete <strong>%(category.name)s</strong>?"
+msgstr "本当に<strong>%(category.name)s</strong>を削除しますか？"
+
+#: .\boardgames\templates\boardgames\modals\delete_game_modal.html:14
+#, python-format
+msgid "Are you sure you want to delete <strong>%(game.title)s</strong>?"
+msgstr "本当に<strong>%(game.title)s</strong>を削除しますか？"
+
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:11
+#, fuzzy
+#| msgid "Edit"
+msgid "Edit Game"
+msgstr "編集"
+
+#: .\boardgames\templates\boardgames\modals\edit_game_modal.html:127
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:96
+#, fuzzy
+#| msgid "Save Game"
+msgid "Save Changes"
+msgstr "保存"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:9
+#, fuzzy
+#| msgid "Mechanic"
+msgid "Add Mechanic"
+msgstr "メカニクス"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:19
+#, fuzzy
+#| msgid "Mechanic"
+msgid "Save Mechanic"
+msgstr "メカニクス"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:31
+#, fuzzy
+#| msgid "Mechanic"
+msgid "Edit Mechanic"
+msgstr "メカニクス"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:38
+#, fuzzy
+#| msgid "Mechanic"
+msgid "Mechanic Name"
+msgstr "メカニクス"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:46
+#, fuzzy
+#| msgid "Mechanic"
+msgid "Update Mechanic"
+msgstr "メカニクス"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:58
+#, fuzzy
+#| msgid "Mechanic"
+msgid "Delete Mechanic"
+msgstr "メカニクス"
+
+#: .\boardgames\templates\boardgames\modals\mechanic_modal.html:65
+#, python-format
+msgid "Are you sure you want to delete <strong>%(mechanic.name)s</strong>?"
+msgstr "本当に<strong>%(mechanic.name)s</strong>を削除しますか？"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:9
+#, fuzzy
+#| msgid "Add New Record"
+msgid "Add Play Record"
+msgstr "新しい記録を追加"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:26
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:31
+#, fuzzy
+#| msgid "Game Time:"
+msgid "Game Title"
+msgstr "プレイ時間:"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:33
+#, fuzzy
+#| msgid "Delete Game"
+msgid "Select Game"
+msgstr "ゲームを削除"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:44
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:21
+#, fuzzy
+#| msgid "Play Time"
+msgid "Play Date"
+msgstr "プレイした時間"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:57
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:35
+#, fuzzy
+#| msgid "Duration"
+msgid "Duration (Min)"
+msgstr "プレイ時間"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:74
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:54
+msgid "Results"
+msgstr "プレイ結果"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:79
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:130
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:60
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:114
+#, fuzzy
+#| msgid "Players"
+msgid "Player"
+msgstr "プレイヤー人数"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:81
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:132
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:62
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:116
+#, fuzzy
+#| msgid "New Player"
+msgid "Select Player"
+msgstr "新しいプレイヤー"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:109
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:92
+msgid "Add Result"
+msgstr "プレイヤーを追加"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:115
+#, fuzzy
+#| msgid "Game Records"
+msgid "Save Record"
+msgstr "プレイ記録"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:222
+msgid "No expansions available for this game."
+msgstr "このゲームに拡張はありません。"
+
+#: .\boardgames\templates\boardgames\modals\record_add_modal.html:226
+#, fuzzy
+#| msgid "Game deleted"
+msgid "No game selected."
+msgstr "ゲームを削除しました"
+
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:9
+#, fuzzy
+#| msgid "Delete Game"
+msgid "Delete Play Record"
+msgstr "ゲームを削除"
+
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:15
+msgid "Are you sure you want to delete?"
+msgstr "本当に削除しますか？"
+
+#: .\boardgames\templates\boardgames\modals\record_delete_modal.html:16
+#, python-format
+msgid ""
+"Played on <strong>%(history.play_date)s</strong>&nbsp;"
+"(%(history.duration)smin)"
+msgstr ""
+"プレイした日: <strong>%(history.play_date)s</strong>&nbsp;"
+"(%(history.duration)s分)"
+
+#: .\boardgames\templates\boardgames\modals\record_edit_modal.html:10
+#, fuzzy
+#| msgid "New Record"
+msgid "Edit Record"
+msgstr "新しい記録"
+
+#: .\boardgames\templates\boardgames\players.html:24
+msgid "Total Games Played"
+msgstr "プレイした合計時間"
+
+#: .\boardgames\templates\boardgames\players.html:25
+msgid "Win Rate"
+msgstr "勝率"
+
+#: .\boardgames\templates\boardgames\players.html:26
+msgid "Total Play Time"
+msgstr "プレイした回数"
+
+#: .\boardgames\templates\boardgames\players.html:26
+msgid "hours"
+msgstr "時間"
+
+#: .\boardgames\templates\boardgames\players.html:28
+msgid "Favorite Games (Top 3)"
+msgstr "お気に入りのゲーム (トップ３)"
+
+#: .\boardgames\templates\boardgames\players.html:32
+#, python-format
+msgid ""
+"\n"
+"                                        %(counter)s play\n"
+"                                    "
+msgid_plural ""
+"\n"
+"                                        %(counter)s plays\n"
+"                                    "
+msgstr[0] ""
+"\n"
+"                                        %(counter)s 回\n"
+"                                    "
+msgstr[1] ""
+"\n"
+"                                        %(counter)s 回\n"
+"                                    "
+
+#: .\boardgames\templates\boardgames\players.html:40
+msgid "No games played yet."
+msgstr "まだゲームをプレイしていません"
+
+#: .\boardgames\templates\boardgames\settings.html:16
+#, fuzzy
+#| msgid "Add New Record"
+msgid "Add New Category"
+msgstr "新しい記録を追加"
+
+#: .\boardgames\templates\boardgames\settings.html:39
+#, fuzzy
+#| msgid "No games available."
+msgid "No categories available."
+msgstr "ゲームはありません"
+
+#: .\boardgames\templates\boardgames\settings.html:47
+#, fuzzy
+#| msgid "Mechanic"
+msgid "Add New Mechanic"
+msgstr "メカニクス"
+
+#: .\boardgames\templates\boardgames\settings.html:70
+#, fuzzy
+#| msgid "No games available."
+msgid "No mechanics available."
+msgstr "ゲームはありません"
+
+#: .\boardgames\views.py:118
+msgid "Play record added successfully!"
+msgstr "プレイ記録を登録しました！"
+
+#: .\boardgames\views.py:251
+msgid "Play record updated successfully!"
+msgstr "プレイ記録を更新しました！"
+
+#: .\boardgames\views.py:276
+msgid "Game added successfully"
+msgstr "ゲームを登録しました！"
+
+#: .\boardgames\views.py:302
+msgid "Game updated successfully"
+msgstr "ゲームを更新しました！"
+
+#: .\boardgames\views.py:313
+msgid "Game updated successfully!"
+msgstr "ゲームを更新しました！"
+
+#: .\boardgames\views.py:344
+msgid "Game deleted"
+msgstr "ゲームを削除しました"
+
+#: .\boardgames\views.py:385
+msgid "Player added successfully"
+msgstr "プレイヤーを登録しました！"
+
+#: .\boardgames\views.py:414
+msgid "Category added successfully"
+msgstr "カテゴリーを登録しました！"
+
+#: .\boardgames\views.py:424
+msgid "Category updated successfully"
+msgstr "カテゴリーを更新しました！"
+
+#: .\boardgames\views.py:432
+msgid "Category deleted"
+msgstr "カテゴリーを削除しました"
+
+#: .\boardgames\views.py:441
+msgid "Mechanic added successfully"
+msgstr "メカニクスを登録しました！"
+
+#: .\boardgames\views.py:451
+msgid "Mechanic updated successfully"
+msgstr "メカニクスを更新しました！"
+
+#: .\boardgames\views.py:459
+msgid "Mechanic deleted"
+msgstr "メカニクスを削除しました"

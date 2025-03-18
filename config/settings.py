@@ -73,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware', #localization
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -136,6 +137,13 @@ TIME_ZONE = env('TIME_ZONE')
 USE_I18N = env('USE_I18N')
 
 USE_TZ = env('USE_TZ')
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('ja', 'Japanese'),
+    ('de', 'German'),
+]
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
 
 # Static files (CSS, JavaScript, Images)
